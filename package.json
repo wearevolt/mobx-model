@@ -1,0 +1,18 @@
+{
+  "name": "mobservable-model",
+  "version": "0.0.1",
+  "description": "Simple model with attributes and relations updated from json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Ponomarev (ikido)",
+  "license": "MIT",
+  "dependencies": {
+    "inflection": "^1.8.0",
+    "lodash": "^3.10.1",
+    "mobservable": "^1.2.1",
+    "qs": "^6.0.1",
+    "superagent": "^1.6.1"
+  }
+}
