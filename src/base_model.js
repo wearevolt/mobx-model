@@ -3,10 +3,10 @@ import { tableize, underscore } from 'inflection';
 import findWhere from 'lodash/collection/findWhere';
 import filter from 'lodash/collection/filter';
 
-import initAttributes from 'lib/init_attributes';
-import setAttributes from 'lib/set_attributes';
-import initRelations from 'lib/init_relations';
-import setRelations from 'lib/set_relations';
+import initAttributes from './init_attributes';
+import setAttributes from './set_attributes';
+import initRelations from './init_relations';
+import setRelations from './set_relations';
 
 
 class BaseModel {
@@ -22,7 +22,7 @@ class BaseModel {
   static config = function(options = {}) {
     let { models } = options;
     this.models = models;
-  }
+  };
 
   static get = function(id) {
     if (!this.collection) this.collection = [];
@@ -166,13 +166,13 @@ class BaseModel {
 
 }
 
-Object.defineProperty(this, 'urlRoot', {
+Object.defineProperty(BaseModel, 'urlRoot', {
   get: function() {
     return this.urlRoot ? this.urlRoot : '/'+tableize(this.name);
   }
 });
 
-Object.defineProperty(this, 'jsonKey', {
+Object.defineProperty(BaseModel, 'jsonKey', {
   get: function() {
     return this.jsonKey ? this.jsonKey : underscore(this.name);
   }

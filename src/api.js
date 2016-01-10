@@ -12,7 +12,7 @@ const API = {
 
     this.errorHandler = errorHandler;
     this.requestData = requestData;
-  }
+  },
 	
 	request(options = {}) {
 

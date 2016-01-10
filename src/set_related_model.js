@@ -1,7 +1,8 @@
 import isNumber from 'lodash/lang/isNumber';
 import isPlainObject from 'lodash/lang/isPlainObject';
-import BaseModel from 'models/base';
 import findWhere from 'lodash/collection/findWhere';
+
+import BaseModel from './base_model';
 
 export default function setRelatedModel(options = {}) {
 
@@ -16,9 +17,7 @@ export default function setRelatedModel(options = {}) {
   } = options;
 
   let existingRelatedModel;
-  // id, json, relatedModel, 
-
-  // console.log('setRelatedModel', modelJson, id, relatedModel)
+  // id, json, relatedModel,   
 
   if (!id && !modelJson && !relatedModel) return;
 

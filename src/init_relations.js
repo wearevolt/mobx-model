@@ -1,8 +1,8 @@
 import { extendObservable } from 'mobservable';
 
-import setRelationsDefaults from 'lib/set_relations_defaults';
-import removeRelatedModel from 'lib/remove_related_model';
-import setRelatedModel from 'lib/set_related_model';
+import setRelationsDefaults from './set_relations_defaults';
+import removeRelatedModel from './remove_related_model';
+import setRelatedModel from './set_related_model';
 
 export default function initRelations(options = {}) {
   let { model } = options;
@@ -16,7 +16,7 @@ export default function initRelations(options = {}) {
 
     // add alias method to set relation to model's instance
     model[relation.setMethodName] = function(options = {}) {
-      Object.assign(options, { relation });
+      Object.assign(options, { relation, model });
       return setRelatedModel(options);
     }.bind(model);
 

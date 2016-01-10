@@ -1,4 +1,4 @@
-import setRelation from 'lib/set_relation';
+import setRelation from './set_relation';
 
 export default function setRelations(options = {}) {
 

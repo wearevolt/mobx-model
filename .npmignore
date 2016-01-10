@@ -1,0 +1,7 @@
+src/
+test/
+webpack.*.js
+.babelrc
+README.md
+TODO
+USAGE.js

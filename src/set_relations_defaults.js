@@ -1,4 +1,4 @@
-import { upperCaseFirstLetter, lowercaseFirstLetter } from 'lib/utils';
+import { upperCaseFirstLetter, lowercaseFirstLetter } from './utils';
 import {
   pluralize, underscore, tableize, foreign_key,
   singularize
