@@ -8,9 +8,10 @@ import uniqueId from 'lodash/utility/uniqueId'
 const API = {
 
   config(options = {}) {
-    let { errorHandler, requestData } = options;
+    let { onRequestError, onRequestCompleted, requestData,  } = options;
 
-    this.errorHandler = errorHandler;
+    this.onRequestCompleted = onRequestCompleted;
+    this.onRequestError = onRequestError;
     this.requestData = requestData;
   },
 	
@@ -59,7 +60,7 @@ const API = {
 
     	doRequest.end( (err, response) => {
 
-    		// console.log('api', response.body);
+        if (this.onRequestCompleted) this.onRequestCompleted(response);
 
         let resolveOptions;
 
@@ -67,7 +68,7 @@ const API = {
 	      	let errors = response.body ? response.body.errors : 'Something bad happened';
       		let statusCode = response.status;
 
-      		if (this.errorHandler) this.errorHandler({ statusCode, errors });
+      		if (this.onRequestError) this.onRequestError({ statusCode, errors });
 
           /*
             we resolve promise even if request

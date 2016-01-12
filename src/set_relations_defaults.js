@@ -10,9 +10,9 @@ import isString from 'lodash/lang/isString';
 // to each relation
 export default function setRelationsDefaults(model) {
 
-  if (!model.constructor.models) {
-    throw new Error("models static variable must be defined for a \
-                     base model class, with list of all model classes")
+  if (!model.constructor.getModel) {
+    throw new Error("getModel static method must be defined for a \
+                     base model class, that returns model class given its name")
   }
 
   model.constructor.relations.forEach(relation => {
@@ -43,7 +43,7 @@ export default function setRelationsDefaults(model) {
     }
 
     if (isString(relation.relatedModel)) {
-      relation.relatedModel = model.constructor.models[relation.relatedModel];
+      relation.relatedModel = model.constructor.getModel(relation.relatedModel);
     }
 
     // property name on model instance to relation(s)

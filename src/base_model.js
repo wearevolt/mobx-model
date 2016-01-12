@@ -114,11 +114,11 @@ class BaseModel {
 
 
   get urlRoot() {
-    return this.constructor.urlRoot();
+    return this.constructor.urlRoot;
   }
 
   get jsonKey() {
-    return this.constructor.jsonKey();
+    return this.constructor.jsonKey;
   }
 
   removeSelfFromCollection() {
@@ -168,13 +168,13 @@ class BaseModel {
 
 Object.defineProperty(BaseModel, 'urlRoot', {
   get: function() {
-    return this.urlRoot ? this.urlRoot : '/'+tableize(this.name);
+    return '/'+tableize(this.name);
   }
 });
 
 Object.defineProperty(BaseModel, 'jsonKey', {
   get: function() {
-    return this.jsonKey ? this.jsonKey : underscore(this.name);
+    return underscore(this.name);
   }
 });
 

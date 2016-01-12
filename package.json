@@ -2,7 +2,7 @@
   "name": "mobservable-model",
   "version": "0.0.1",
   "description": "Simple model with attributes and relations updated from json",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha --reporter spec --compilers js:babel-core/register test/index.js",
     "test-watch": "mocha --reporter spec --compilers js:babel-core/register test/index.js --recursive --watch",
