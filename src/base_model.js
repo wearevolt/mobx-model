@@ -45,9 +45,9 @@ class BaseModel {
       })
 
       this.collection.push(model);
-    } else {
-      model.set({ modelJson, topLevelJson, requestId });  
-    }   
+    }
+    
+    model.set({ modelJson, topLevelJson, requestId });
 
     // console.log('set', model)
 
@@ -85,8 +85,6 @@ class BaseModel {
 
     initAttributes({ model: this });
     initRelations({ model: this });
-
-    this.set({ modelJson, topLevelJson, requestId });
   }
 
 
