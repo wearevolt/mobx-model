@@ -1,6 +1,7 @@
 import isNumber from 'lodash/lang/isNumber';
 import isPlainObject from 'lodash/lang/isPlainObject';
 import findWhere from 'lodash/collection/findWhere';
+import includes from 'lodash/collection/includes';
 
 import BaseModel from './base_model';
 
@@ -77,11 +78,11 @@ export default function setRelatedModel(options = {}) {
     if (relatedModel) {
 
       // push new model to array
-      if (relation.isHasMany) {
+      if (relation.isHasMany && !includes(model[relation.propertyName], relatedModel)) {
         model[relation.propertyName].push(relatedModel);
 
       // or just assign it to the property
-      } else {
+      } else if (relation.isHasOne) {
         model[relation.propertyName] = relatedModel;
       }
 
