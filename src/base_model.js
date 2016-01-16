@@ -119,6 +119,15 @@ class BaseModel {
     return this.constructor.jsonKey;
   }
 
+  onDestroy() {
+    this.removeSelfFromRelations();
+    
+    transaction(() => {
+      this.removeSelfFromCollection();        
+      this.destroyDependentRelations();
+    });
+  }
+
   removeSelfFromCollection() {
     this.constructor.remove(this);
   }
