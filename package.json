@@ -10,6 +10,10 @@
     "clean": "rm -rf lib/",
     "build": "webpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikido/mobservable-model.git"
+  },
   "author": "Alexander Ponomarev",
   "license": "MIT",
   "keywords": [
