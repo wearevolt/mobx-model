@@ -58,6 +58,10 @@ class BaseModel {
     this.collection.splice(this.collection.indexOf(model), 1);
   };
 
+  static all = function() {
+    return this.collection.slice();
+  };
+
   static addClassAction(actionName, method) {
     Object.defineProperty(this, actionName, {
       get: function() {
