@@ -165,11 +165,15 @@ class BaseModel {
 
       if (relation.isHasMany) {
         this[relation.propertyName].slice().forEach(relatedModel => {
-          relatedModel[removeMethodName](this);
+          if (relatedModel[removeMethodName]) {
+            relatedModel[removeMethodName](this);
+          }
         })
       } else if (relation.isHasOne) {
         // console.log(relation.propertyName, removeMethodName, this[relation.propertyName])
-        this[relation.propertyName][removeMethodName](this);
+        if (this[relation.propertyName][removeMethodName]) {
+          this[relation.propertyName][removeMethodName](this);
+        }
       }
     })
   }
