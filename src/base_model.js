@@ -85,7 +85,9 @@ class BaseModel {
       requestId
     } = options;
 
-    this.id = modelJson.id;    
+    if (modelJson && modelJson.id) {
+      this.id = modelJson.id;
+    }
 
     initAttributes({ model: this });
     initRelations({ model: this });
