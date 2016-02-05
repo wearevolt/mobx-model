@@ -1,6 +1,6 @@
 {
   "name": "mobservable-model",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "dependencies": {
     "inflection": {
       "version": "1.8.0",
