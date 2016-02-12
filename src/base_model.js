@@ -210,7 +210,7 @@ class BaseModel {
         })
       } else if (relation.isHasOne) {
         // console.log(relation.propertyName, removeMethodName, this[relation.propertyName])
-        if (this[relation.propertyName][removeMethodName]) {
+        if (this[relation.propertyName] && this[relation.propertyName][removeMethodName]) {
           this[relation.propertyName][removeMethodName](this);
         }
       }
