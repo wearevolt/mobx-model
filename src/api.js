@@ -2,7 +2,14 @@
 
 import request from 'superagent';
 import qs from 'qs';
-import uniqueId from 'lodash/utility/uniqueId'
+import uniqueId from 'lodash/utility/uniqueId';
+import BPromise from 'bluebird';
+
+BPromise.config({
+  warnings: true,
+  longStackTraces: true,
+  cancellation: true
+});
 
 
 const API = {
@@ -56,7 +63,7 @@ const API = {
      */
     let requestId = uniqueId('request_');
     let isCancelled = false;
-    let promise = new Promise( (resolve, reject) => {
+    return new BPromise( (resolve, reject) => {
 
     	doRequest.end( (err, response) => {
 
@@ -78,7 +85,6 @@ const API = {
            */
           resolveOptions = {
             ok: false,
-            cancelled: isCancelled,
             errors: 'Something bad happened',
             requestId
           };
@@ -94,7 +100,6 @@ const API = {
 
           resolveOptions = {
             ok: true,
-            cancelled: isCancelled,
             body: response.body,
             requestId,            
           };
@@ -106,22 +111,6 @@ const API = {
       });
 
     });
-
-    /* 
-      we return another promise wrapped around superagent
-      cause we want to do our own error handling (e.g. display
-      error message) and maybe process response before passing
-      it back + we make this promise cancellable
-     */
-    return {
-      then: promise.then.bind(promise),
-      catch: promise.catch.bind(promise),
-      requestId,
-      cancel() {
-        // console.log('cancelling promise');
-        isCancelled = true;
-      }
-    }
 
 	}
 }

@@ -26,6 +26,7 @@
     "model"
   ],
   "dependencies": {
+    "bluebird": "^3.3.1",
     "inflection": "^1.8.0",
     "lodash": "^3.10.1",
     "mobservable": "^1.2.1",
