@@ -18,7 +18,7 @@ export default function setRelations(options = {}) {
 
     if (embeddedJson) {
       Object.assign(options, { modelJson: embeddedJson });
-    } else if (foreignKeys) {
+    } else if (foreignKeys !== undefined) {
       Object.assign(options, { ids: foreignKeys });
     }
 
