@@ -15,7 +15,7 @@ export default function setRelation(options = {}) {
   // console.log('setRelation', relation, ids, modelJson)
 
   // if no ids and json was passed, do nothing
-  if (!modelJson && !ids) return
+  if (!modelJson && ids===undefined) return
 
   if (relation.isHasMany) {
 
