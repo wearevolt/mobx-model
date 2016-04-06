@@ -50,7 +50,7 @@ class BaseModel {
     if (this.observables && isObservableArray(this.observables.collection)) {
       var items = this.observables.collection.$mobx, l = items.length;
       for(var i = 0; i < l; i++) {
-        if (items[i].id === parseInt(id)) return items[i];
+        if (items[i].id === id) return items[i];
       } 
     }    
 
