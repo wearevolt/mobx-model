@@ -15,11 +15,12 @@ BPromise.config({
 const API = {
 
   config(options = {}) {
-    let { onRequestError, onRequestCompleted, requestData,  } = options;
+    let { onRequestError, onRequestCompleted, requestData, urlRoot } = options;
 
     this.onRequestCompleted = onRequestCompleted;
     this.onRequestError = onRequestError;
     this.requestData = requestData;
+    this.urlRoot = urlRoot;
   },
 	
 	request(options = {}) {
@@ -41,11 +42,11 @@ const API = {
 		Object.assign(data, this.requestData);
 
     if (method === 'post' || method === 'put') {
-      doRequest = request[method](url_for(endpoint))
+      doRequest = request[method](this.urlRoot+endpoint)
         .accept('json')
         .send(data);
     } else if (method === 'get' || method == 'del') {
-      doRequest = request[method](url_for(endpoint))
+      doRequest = request[method](this.urlRoot+endpoint)
         .accept('json')
         .query(
           qs.stringify(
