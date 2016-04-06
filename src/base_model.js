@@ -5,6 +5,7 @@ import { tableize, underscore } from 'inflection';
 import findWhere from 'lodash/collection/findWhere';
 import filter from 'lodash/collection/filter';
 import isArray from 'lodash/lang/isArray';
+import uniqueId from 'lodash/utility/uniqueId';
 
 import initAttributes from './init_attributes';
 import setAttributes from './set_attributes';
@@ -27,8 +28,6 @@ const initObservables = function(target) {
 
 class BaseModel {
 
-  static urlRoot = null;
-  static jsonKey = null;
   static attributes = {};
   static relations = [];
   // static observables = {};
@@ -63,6 +62,18 @@ class BaseModel {
     // console.log('set static', this.name)
 
     let { modelJson, topLevelJson, requestId } = options;
+
+    /*
+      requestId is used to allow models to 
+      prevent loops when setting same attributes
+      multiple times, we set one if none is set
+     */
+    if (!requestId) requestId = uniqueId('request_');
+
+    /*
+     * topLevelJson is used to get json for models referenced by ids
+     */
+    if (!topLevelJson) topLevelJson = modelJson;
 
     let model = this.get(modelJson.id);
     
@@ -221,13 +232,19 @@ class BaseModel {
 
 Object.defineProperty(BaseModel, 'urlRoot', {
   get: function() {
-    return '/'+tableize(this.name);
+    return this._urlRoot ? this._urlRoot : '/'+tableize(this.name);
+  },
+  set: function(value) {
+    this._urlRoot = value;
   }
 });
 
 Object.defineProperty(BaseModel, 'jsonKey', {
   get: function() {
-    return underscore(this.name);
+    return this._jsonKey ? this._jsonKey : underscore(this.name);
+  },
+  set: function(value) {
+    this._jsonKey = value;
   }
 });
 
