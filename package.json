@@ -1,6 +1,6 @@
 {
-  "name": "mobservable-model",
-  "version": "0.0.10",
+  "name": "mobx-model",
+  "version": "0.0.11",
   "description": "Simple model with attributes and relations updated from json",
   "main": "lib/index.js",
   "scripts": {
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikido/mobservable-model.git"
+    "url": "https://github.com/ikido/mobx-model.git"
   },
   "author": "Alexander Ponomarev",
   "license": "MIT",
   "keywords": [
-    "mobservable",
+    "mobx",
     "observable",
     "react-component",
     "react",
@@ -29,7 +29,7 @@
     "bluebird": "^3.3.1",
     "inflection": "^1.8.0",
     "lodash": "^3.10.1",
-    "mobservable": "^1.2.1",
+    "mobx": "^2.0.5",
     "qs": "^6.0.1",
     "superagent": "^1.6.1"
   },

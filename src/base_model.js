@@ -1,6 +1,6 @@
 import { 
   transaction, extendObservable, isObservableArray, asFlat
-} from 'mobservable';
+} from 'mobx';
 import { tableize, underscore } from 'inflection';
 import findWhere from 'lodash/collection/findWhere';
 import filter from 'lodash/collection/filter';
@@ -36,10 +36,10 @@ class BaseModel {
   id = null;
   lastSetRequestId = null;  
 
-  static config = function(options = {}) {
-    let { models } = options;
-    this.models = models;
-  };
+  // static config = function(options = {}) {
+  //   let { models } = options;
+  //   this.models = models;
+  // };
 
   /*
    * NOTE: we access internal mobservable array of values to

@@ -1,4 +1,4 @@
-import { extendObservable } from 'mobservable';
+import { extendObservable } from 'mobx';
 
 import setRelationsDefaults from './set_relations_defaults';
 import removeRelatedModel from './remove_related_model';

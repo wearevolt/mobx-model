@@ -1,4 +1,4 @@
-import { extendObservable } from 'mobservable';
+import { extendObservable } from 'mobx';
 
 export default function initAttributes(options = {}) {
 	let { model } = options;
