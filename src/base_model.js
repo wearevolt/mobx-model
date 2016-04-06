@@ -48,7 +48,7 @@ class BaseModel {
    */
   static get = function(id) {    
     if (this.observables && isObservableArray(this.observables.collection)) {
-      var items = this.observables.collection.$mobservable.values, l = items.length;
+      var items = this.observables.collection.$mobx, l = items.length;
       for(var i = 0; i < l; i++) {
         if (items[i].id === parseInt(id)) return items[i];
       } 

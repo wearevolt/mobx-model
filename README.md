@@ -4,15 +4,20 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## TODO
 
+* Add standard restful methods to baseModel
 * Dist size is HUGE — 425kb
 * Inlude source files in published module
-* we can get rid of topLevelJson and requestId in `set` methods, making them optional. They can be added in the first call to this method, if not there yet
+* We can get rid of topLevelJson and requestId in `set` methods, making them optional. They can be added in the first call to this method, if not there yet
 * Add tests
 * Add support for polymorphism
 * Add support for other JSON formats, such as JSON-api
 * `del` http method should be `delete`
 
 ## Changelog
+
+### 0.0.14
+
+* fixed BaseModel.get bug with mobx 2.0.5
 
 ### 0.0.13
 
@@ -23,4 +28,3 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 * BaseModel.set static method now works if only { modelJson } was passed
 * attributes in JSON can be either camelcased or underscored
 * fixed static urlRoot and jsonKey properties for 
-* fixed BaseModel.get bug with mobx 2.0.5
