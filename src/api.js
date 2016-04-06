@@ -70,16 +70,16 @@ const API = {
       // send request and act upon result
     	doRequest.end( (err, response) => {
         if (this.onRequestCompleted) this.onRequestCompleted(response);
-        
+
 	      if (!response.ok) {
 	      	let errors = response.body ? response.body.errors : 'Something bad happened';
       		let statusCode = response.status;
 
       		if (this.onRequestError) this.onRequestError({ statusCode, errors });          
 
-          onError(response.body);	        
+          onError(response);	        
 	      } else {
-	      	onSuccess(response.body);          
+	      	onSuccess(response);          
         }
 
         /*

@@ -4,6 +4,7 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## TODO
 
+* makes sense to make all data in modelJson as attributes, if it's not defined as relations. But we can't do that 
 * Add standard restful methods to baseModel
 * Dist size is HUGE — 425kb
 * Inlude source files in published module
@@ -14,6 +15,10 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 * `del` http method should be `delete`
 
 ## Changelog
+
+### 0.0.15
+
+* API onSuccess and onError callbacks are executed with full response object, not just json (which is now response.body)
 
 ### 0.0.14
 
