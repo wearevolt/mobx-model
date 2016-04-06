@@ -6,6 +6,7 @@ import findWhere from 'lodash/collection/findWhere';
 import filter from 'lodash/collection/filter';
 import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
+import result from 'lodash/object/result';
 
 import initAttributes from './init_attributes';
 import setAttributes from './set_attributes';
@@ -46,9 +47,10 @@ class BaseModel {
    * value. This way we'll prevent re-rendering components displaying
    * single model when collection changes
    */
-  static get = function(id) {    
-    if (this.observables && isObservableArray(this.observables.collection)) {
-      var items = this.observables.collection.$mobx, l = items.length;
+  static get = function(id) {
+    let items = result(this, 'observables.$mobx.values.collection.value')   
+    if (items && isObservableArray(items)) {
+      let l = items.length;
       for(var i = 0; i < l; i++) {
         if (items[i].id === id) return items[i];
       } 

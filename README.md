@@ -17,7 +17,7 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## Changelog
 
-### 0.0.16
+### 0.0.17
 
 * Allow ids to be non-integer
 
