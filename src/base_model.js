@@ -52,7 +52,7 @@ class BaseModel {
     if (items && isObservableArray(items)) {
       let l = items.length;
       for(var i = 0; i < l; i++) {
-        if (items[i].id === id) return items[i];
+        if (items[i].id.toString() === id.toString()) return items[i];
       } 
     }    
 

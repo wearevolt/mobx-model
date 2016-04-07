@@ -4,6 +4,8 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## TODO
 
+* add simple example project with CRUD, relations, auth and router
+* add model.toJson method that will by default return foreign key / ids for relations and attributes with underscored keys
 * Add model.getAll(ids = []) method that will fetch all cached model instances by id
 * Makes sense to make all data in modelJson as attributes, if it's not defined as relations. But we can't do that 
 * Add standard restful methods to baseModel
@@ -17,7 +19,7 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## Changelog
 
-### 0.0.17
+### 0.0.18
 
 * Allow ids to be non-integer
 
