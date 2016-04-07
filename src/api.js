@@ -3,7 +3,9 @@
 import request from 'superagent';
 import qs from 'qs';
 import BPromise from 'bluebird';
+
 import pick from 'lodash/object/pick';
+import isFunction from 'lodash/lang/isFunction';
 
 BPromise.config({
   warnings: true,
@@ -26,7 +28,9 @@ const API = {
 	
 	request(options = {}) {
 
-		let { method, data, endpoint, onSuccess, onError } = options;    
+		let { method, data, endpoint, onSuccess, onError } = options;
+    let requestData;
+    let doRequest;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
@@ -43,7 +47,7 @@ const API = {
     }
 
     // set headers
-		let doRequest = request[method](this.urlRoot+endpoint)
+		doRequest = request[method](this.urlRoot+endpoint)
                       .accept('json')
 
     Object.keys(this.requestHeaders).forEach(header => {
@@ -51,7 +55,13 @@ const API = {
     });
 
     // merge default requestData with object passed with this request
-		Object.assign(data, this.requestData);
+    if (isFunction(this.requestData) {}
+		  requestData = this.requestData();
+    } else {
+      requestData = this.requestData;
+    }
+
+    Object.assign(data, requestData);
 
     // just send as POST or prepare data for GET request
     if (method === 'post' || method === 'put') {      
