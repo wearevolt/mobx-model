@@ -29,8 +29,7 @@ const API = {
 	request(options = {}) {
 
 		let { method, data, endpoint, onSuccess, onError } = options;
-    let requestData;
-    let doRequest;
+    let requestData, requestHeaders, doRequest;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
@@ -50,8 +49,14 @@ const API = {
 		doRequest = request[method](this.urlRoot+endpoint)
                       .accept('json')
 
-    Object.keys(this.requestHeaders).forEach(header => {
-      doRequest = doRequest.set(header, this.requestHeaders[header]);
+    if (isFunction(this.requestHeaders)) {
+      requestHeaders = this.requestHeaders();
+    } else {
+      requestHeaders = this.requestHeaders;
+    }
+
+    Object.keys(requestHeaders).forEach(header => {
+      doRequest = doRequest.set(header, requestHeaders[header]);
     });
 
     // merge default requestData with object passed with this request

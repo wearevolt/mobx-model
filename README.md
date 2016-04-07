@@ -19,7 +19,9 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## Changelog
 
-* requestData in api config can be an object or a function returning object
+### 0.0.21
+
+* requestData and requestHeaders in api config can be an object or a function returning object
 
 ### 0.0.18
 
