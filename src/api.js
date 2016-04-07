@@ -55,7 +55,7 @@ const API = {
     });
 
     // merge default requestData with object passed with this request
-    if (isFunction(this.requestData) {}
+    if (isFunction(this.requestData)) {
 		  requestData = this.requestData();
     } else {
       requestData = this.requestData;
