@@ -1,6 +1,6 @@
 {
   "name": "mobx-model",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "dependencies": {
     "align-text": {
       "version": "0.1.3",
