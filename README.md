@@ -19,6 +19,10 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## Changelog
 
+### 0.0.22
+
+* fixed issue with non-updating attributes on subsequent set instace method calls
+
 ### 0.0.21
 
 * requestData and requestHeaders in api config can be an object or a function returning object

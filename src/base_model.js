@@ -148,6 +148,8 @@ class BaseModel {
     let { requestId, modelJson, topLevelJson } = options;
     let model = this;
 
+    if (!requestId) requestId = uniqueId('request_');
+
     if (this.lastSetRequestId === requestId) {
       return;
     } else {
