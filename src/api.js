@@ -6,6 +6,7 @@ import BPromise from 'bluebird';
 
 import pick from 'lodash/object/pick';
 import isFunction from 'lodash/lang/isFunction';
+import isEmpty from 'lodash/lang/isEmpty';
 
 BPromise.config({
   warnings: true,
@@ -28,7 +29,7 @@ const API = {
 	
 	request(options = {}) {
 
-		let { method, data, endpoint, onSuccess, onError } = options;
+		let { method, data, endpoint, onSuccess, onError, fileData } = options;
     let requestData, requestHeaders, doRequest;
 
 		if (!method) { method = 'get' }
@@ -47,7 +48,11 @@ const API = {
 
     // set headers
 		doRequest = request[method](this.urlRoot+endpoint)
-                      .accept('json')
+                      
+
+    if (isEmpty(fileData)) {
+      doRequest.accept('json');
+    }
 
     if (isFunction(this.requestHeaders)) {
       requestHeaders = this.requestHeaders();
@@ -59,18 +64,27 @@ const API = {
       doRequest = doRequest.set(header, requestHeaders[header]);
     });
 
-    // merge default requestData with object passed with this request
-    if (isFunction(this.requestData)) {
-		  requestData = this.requestData();
-    } else {
-      requestData = this.requestData;
+    // for now do not send any data except files if they are passed
+    if (!isEmpty(fileData)) {
+      // merge default requestData with object passed with this request
+      if (isFunction(this.requestData)) {
+  		  requestData = this.requestData();
+      } else {
+        requestData = this.requestData;
+      }
+
+      Object.assign(data, requestData);
     }
 
-    Object.assign(data, requestData);
-
     // just send as POST or prepare data for GET request
-    if (method === 'post' || method === 'put') {      
-      doRequest.send(data);
+    if (method === 'post' || method === 'put') {
+      if (!isEmpty(fileData)) {
+        let formData = new FormData();
+        formData.append(fileData.attibuteName, fileData.file);
+        doRequest.send(formData);
+      } else {
+        doRequest.send(data);
+      }
     } else if (method === 'get' || method == 'del') {
       doRequest.query(
         qs.stringify(

@@ -4,8 +4,10 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 
 ## TODO
 
+* send `data` and `requestData` along with uploaded file, support uploading of multiple files
+* do not rely on js class names as they can be mangled during uglification
 * add simple example project with CRUD, relations, auth and router
-* add model.toJson method that will by default return foreign key / ids for relations and attributes with underscored keys
+* add model.toJSON method that will by default return foreign key / ids for relations and attributes with underscored keys
 * Add model.getAll(ids = []) method that will fetch all cached model instances by id
 * Makes sense to make all data in modelJson as attributes, if it's not defined as relations. But we can't do that 
 * Add standard restful methods to baseModel
@@ -18,6 +20,10 @@ It is not perfect, but it works for us together with Rails + ActiveModel Seriali
 * `del` http method should be `delete`
 
 ## Changelog
+
+### 0.0.23
+
+* file uploads now working, you can supply fileData option like this: `fileData: { attibuteName: 'file', file }`, where attributeName is name of form field that server expects and file is the file object. Note that to data from `data` option won't be sent, as well as no `requestData` from `API.config`
 
 ### 0.0.22
 
