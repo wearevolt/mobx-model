@@ -2,5 +2,29 @@
   "gitbook": "2.5.2",
   "structure": { 
     "summary": "docs/SUMMARY.md" 
-  } 
+  },
+  "plugins": [
+  	"edit-link",
+  	"prism",
+  	"-highlight",
+  	"github",
+  	"anker-enable",
+  	"disqus",
+  	"ga"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/ikido/mobx-model/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/ikido/mobx-model/"
+    },
+    "disqus": {
+			"shortName": "mobx-model"
+    },
+    "ga": {
+			"token": "UA-63820458-2"
+    }
+  }
 }
