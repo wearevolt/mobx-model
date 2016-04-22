@@ -1,6 +1,5 @@
 # Summary
 
-* [Introduction](README.md)
 * [Defining attributes](docs/defining_attributes.md)
 * [Defining relations](docs/defining_relations.md)
 * [Base model config](docs/base_model_config.md)
