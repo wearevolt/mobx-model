@@ -2,7 +2,7 @@
 
 To use relations you must extend `BaseModel` class and add static `relations` property
 
-```
+```js
 import { BaseModel } from 'mobx-model';
 
 class Post extends BaseModel

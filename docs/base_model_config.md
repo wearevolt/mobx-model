@@ -6,7 +6,7 @@ You need to config `BaseModel` somewhere, at least to set up a way to resolve re
 
 This method is used to derive model class from its name. We need this method to solve circular dependency problem when models reference each other.
 
-```
+```js
 import models from 'models';
 
 BaseModel.getModel = (modelName) => {
@@ -18,7 +18,7 @@ BaseModel.getModel = (modelName) => {
 
 This method is a shortcut to add static method and bind its `this` to a class.
 
-```
+```js
 BaseModel.addClassAction('load', function(id) {
   return API.request({
     endpoint: `${this.urlRoot}/${id}`,
@@ -39,7 +39,7 @@ BaseModel.addClassAction('load', function(id) {
 
 This method is a shortcut to add instance method and bind its `this` to model instance
 
-```
+```js
 BaseModel.addAction('destroy', function() {
   return API.request({
     method: 'del',
@@ -56,7 +56,7 @@ BaseModel.addAction('destroy', function() {
 
 You can also add other common behaviour, for example you can add static `init` method to your models that will load cache when your app is loaded, and call it during config time
 
-```
+```js
 Object.keys(models).forEach(modelName => {
   if (models[modelName].init) models[modelName].init();
 })

@@ -2,7 +2,7 @@
 
 To use attributes you must extend `BaseModel` class and add static `attributes` property object.
 
-```
+```js
 import { BaseModel } from 'mobx-model';
 
 class Post extends BaseModel

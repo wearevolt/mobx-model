@@ -3,7 +3,7 @@
 
 You can setup API requests by passing config options to `API.config` method.
 
-```
+```js
 API.config({
   urlRoot: '/api/v1',
   requestData: { CSRFParam: 'CSRFToken' },
