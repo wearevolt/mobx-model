@@ -24,7 +24,7 @@ API.config({
 | Option | Type | Description |
 | -- | -- | -- |
 | `urlRoot` | `string` | Prefix that will be added to all your api requests |
-| `requestData` | `object` or `function` | An object or a function that returns an object that will be merged with data sent with a request |
+| `requestData` | `object` or `function` | An object or a function that returns an object that will be merged with data sent with a request. Note that for now if you will use `fileData` option to upload a file then no data will be sent to server, including `requestData` |
 | `requestHeaders` | `object` or `function` | An object or a function that returns an object that will be merged with headers sent with a request |
 | `onRequestError` | `function` | Callback that will be called with a superagent response object when request is considered as failed by superagent |
 | `onRequestCompleted` | `function` | Callback that will be called with a superagent response object on every request (even failed one) |
