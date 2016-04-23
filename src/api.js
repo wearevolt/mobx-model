@@ -104,7 +104,7 @@ const API = {
 	      	let errors = response.body ? response.body.errors : 'Something bad happened';
       		let statusCode = response.status;
 
-      		if (this.onRequestError) this.onRequestError({ statusCode, errors });          
+      		if (this.onRequestError) this.onRequestError(response);          
 
           onError(response);	        
 	      } else {
