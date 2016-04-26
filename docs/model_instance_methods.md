@@ -52,15 +52,44 @@ post.set({ modelJson: json.post, topLevelJson: json });
 | `topLevelJson` | `object` | When looking up relations referenced by ids `topLevelJsonKey` relation config property is used to find object in `topLevelJson` that contains related objects |
 
 
-urlRoot
+## model.urlRoot, model.jsonKey
 
-jsonKey
+Just couple of shorthand methods that returns prefix for model's RESTful methods and model's key to find its attributes in JSON. Both methods are usually used in server actions
 
-onDestroy
+```js
+class Post extends BaseModel {
 
-removeSelfFromCollection
+	update(attributes = {}) {
+	  return API.request({
+	    method: 'put',
+	    data: attributes,
+	    endpoint: `${this.urlRoot}/${this.id}`,
+	    onSuccess: (response) => {
+	    	let json = response.body;
+	      this.set({ modelJson: json[this.jsonKey] });
+	    }
+	  });
+	}
 
-destroyDependentRelations
+}
 
-removeSelfFromRelations
+```
+
+### model.onDestroy
+
+This is a shorthand method that calls all methods listed below — `removeSelfFromCollection`, `destroyDependentRelations`, `removeSelfFromRelations`. It does all cleanup that is neccessary when model is being destroyed.
+
+### model.removeSelfFromCollection
+
+Removes this model instance from collection of cached models of this class
+
+### model.destroyDependentRelations
+
+Finds relations that have `onDestroy: 'destroyRelation'` config option and calls `onDestroy` method on those relations, removing them from model cache.
+
+### model.removeSelfFromRelations
+
+Finds relations that have `onDestroy: 'removeSelf'` config option set (which is default) and removes this model instance from those relation model instances
+
+
 
