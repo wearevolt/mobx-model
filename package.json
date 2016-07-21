@@ -30,12 +30,13 @@
     "model"
   ],
   "dependencies": {
-    "bluebird": "^3.3.1",
-    "inflection": "^1.8.0",
-    "lodash": "^3.10.1",
-    "mobx": "^2.0.5",
-    "qs": "^6.0.1",
-    "superagent": "^1.6.1"
+    "babel-core": "^6.11.4",
+    "bluebird": "^3.4.1",
+    "inflection": "^1.10.0",
+    "lodash": "^4.13.1",
+    "mobx": "^2.4.0",
+    "qs": "^6.2.1",
+    "superagent": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",

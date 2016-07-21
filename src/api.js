@@ -4,9 +4,9 @@ import request from 'superagent';
 import qs from 'qs';
 import BPromise from 'bluebird';
 
-import pick from 'lodash/object/pick';
-import isFunction from 'lodash/lang/isFunction';
-import isEmpty from 'lodash/lang/isEmpty';
+import pick from 'lodash/pick';
+import isFunction from 'lodash/isFunction';
+import isEmpty from 'lodash/isEmpty';
 
 BPromise.config({
   warnings: true,

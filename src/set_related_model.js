@@ -1,7 +1,7 @@
-import isNumber from 'lodash/lang/isNumber';
-import isPlainObject from 'lodash/lang/isPlainObject';
-import findWhere from 'lodash/collection/findWhere';
-import includes from 'lodash/collection/includes';
+import isNumber from 'lodash/isNumber';
+import isPlainObject from 'lodash/isPlainObject';
+import find from 'lodash/find';
+import includes from 'lodash/includes';
 
 import BaseModel from './base_model';
 
@@ -10,7 +10,7 @@ export default function setRelatedModel(options = {}) {
   let {
     id,
     modelJson,
-    relatedModel,
+    relatedModel, // related model instance, basically the same as existingRelatedModel
     model,
     relation,
     requestId,
@@ -26,7 +26,7 @@ export default function setRelatedModel(options = {}) {
   if (id && !modelJson) {
     let topLevelModelJson = topLevelJson[relation.topLevelJsonKey];                  
     if (topLevelModelJson) {
-      modelJson = findWhere(topLevelModelJson, { id });
+      modelJson = find(topLevelModelJson, { id });
     }
   }
 
@@ -56,6 +56,11 @@ export default function setRelatedModel(options = {}) {
       // if no json passed, then just try to fetch model 
       // with given id from the store, if any
       if (!modelJson) {
+
+        /*
+         * !!!!!!!!!!!!!!!!!!!!!!!!!!!
+         * TODO
+         */
 
         relatedModel = relation.relatedModel.get(id)
 

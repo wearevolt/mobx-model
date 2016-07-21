@@ -1,4 +1,4 @@
-import keys from 'lodash/object/keys';
+import keys from 'lodash/keys';
 import { underscore } from 'inflection';
 
 export default function setAttributes(options = {}) {

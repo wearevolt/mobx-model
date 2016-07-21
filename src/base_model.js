@@ -2,11 +2,10 @@ import {
   transaction, extendObservable, isObservableArray, asFlat
 } from 'mobx';
 import { tableize, underscore } from 'inflection';
-import findWhere from 'lodash/collection/findWhere';
-import filter from 'lodash/collection/filter';
-import isArray from 'lodash/lang/isArray';
-import uniqueId from 'lodash/utility/uniqueId';
-import result from 'lodash/object/result';
+import filter from 'lodash/filter';
+import isArray from 'lodash/isArray';
+import uniqueId from 'lodash/uniqueId';
+import result from 'lodash/result';
 
 import initAttributes from './init_attributes';
 import setAttributes from './set_attributes';

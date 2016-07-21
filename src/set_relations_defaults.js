@@ -3,8 +3,8 @@ import {
   pluralize, underscore, tableize, foreign_key,
   singularize
 } from 'inflection';
-import isBoolean from 'lodash/lang/isBoolean';
-import isString from 'lodash/lang/isString';
+import isBoolean from 'lodash/isBoolean';
+import isString from 'lodash/isString';
 
 // mutate static relations and add defaults
 // to each relation

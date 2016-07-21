@@ -1,5 +1,5 @@
-import isArray from 'lodash/lang/isArray';
-import contains from 'lodash/collection/contains';
+import isArray from 'lodash/isArray';
+import contains from 'lodash/includes';
 
 export default function setRelation(options = {}) {  
 
@@ -56,7 +56,7 @@ export default function setRelation(options = {}) {
 
     // remove relations not in json
     collection.slice().forEach(relatedModel => {
-      if (!contains(relatedModelIds, relatedModel.id)) {
+      if (!includes(relatedModelIds, relatedModel.id)) {
         model[relation.removeMethodName](relatedModel);
       }
     });

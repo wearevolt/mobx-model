@@ -27,7 +27,11 @@ class OtherModel extends BaseModel {
 	];
 }
 
-BaseModel.config({ models: { Model, OtherModel } });
+const models = [Model, OtherModel];
+
+BaseModel.getModel = function(modelName) {
+  return models[modelName];
+};
 
 let requestId = '';
 let topLevelJson = {
