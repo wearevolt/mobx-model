@@ -1,5 +1,5 @@
 import isArray from 'lodash/isArray';
-import contains from 'lodash/includes';
+import includes from 'lodash/includes';
 
 export default function setRelation(options = {}) {  
 
