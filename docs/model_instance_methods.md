@@ -78,7 +78,7 @@ class Post extends BaseModel {
 ### model.onInitialize
 
 This is a hook called when model instance is initialized.
-Redefine it in your methods to add functionality to each model instance, such as custom observable attribute
+Redefine it in your models to add functionality to each model instance, such as custom observable attribute
 
 ```
 class Model extends BaseModel {
