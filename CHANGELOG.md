@@ -1,5 +1,17 @@
 ## Changelog
 
+### 0.0.26
+
+Added onInitialize hook for model instances
+
+### 0.0.25
+
+Fixed a bug in setRealation method
+
+### 0.0.24
+
+Updated dependencies to latest versions
+
 ### 0.0.23
 
 * file uploads now working, you can supply fileData option like this: `fileData: { attibuteName: 'file', file }`, where attributeName is name of form field that server expects and file is the file object. Note that to data from `data` option won't be sent, as well as no `requestData` from `API.config`
