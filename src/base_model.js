@@ -134,12 +134,16 @@ class BaseModel {
     
     initObservables(this.constructor)
 
+
+
     if (modelJson && modelJson.id) {
       this.id = modelJson.id;
     }
 
     initAttributes({ model: this });
     initRelations({ model: this });
+
+    this.onInitialize();
   }
 
 
@@ -174,6 +178,9 @@ class BaseModel {
 
   get jsonKey() {
     return this.constructor.jsonKey;
+  }
+
+  onInitialize() {
   }
 
   onDestroy() {    

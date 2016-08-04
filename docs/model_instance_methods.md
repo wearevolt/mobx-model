@@ -75,6 +75,22 @@ class Post extends BaseModel {
 
 ```
 
+### model.onInitialize
+
+This is a hook called when model instance is initialized.
+Redefine it in your methods to add functionality to each model instance, such as custom observable attribute
+
+```
+class Model extends BaseModel {
+	onInitialize() {
+		this.observableMeta = extendObservable({
+			action: null,
+			someStuff: null
+		})
+	}
+}
+```
+
 ### model.onDestroy
 
 This is a shorthand method that calls all methods listed below — `removeSelfFromCollection`, `destroyDependentRelations`, `removeSelfFromRelations`. It does all cleanup that is neccessary when model is being destroyed.
