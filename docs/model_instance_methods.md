@@ -83,7 +83,7 @@ Redefine it in your models to add functionality to each model instance, such as 
 ```
 class Model extends BaseModel {
 	onInitialize() {
-		this.observableMeta = extendObservable({
+		this.observableMeta = observable({
 			action: null,
 			someStuff: null
 		})
