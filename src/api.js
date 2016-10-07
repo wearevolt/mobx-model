@@ -23,14 +23,16 @@ const API = {
       'onRequestCompleted',
       'requestData',
       'requestHeaders',
-      'urlRoot'
+      'urlRoot',
+      'superagent'
     ]))
   },
-	
+
 	request(options = {}) {
 
 		let { method, data, endpoint, onSuccess, onError, fileData } = options;
     let requestData, requestHeaders, doRequest;
+    const request = this.superagent || request;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
@@ -48,7 +50,7 @@ const API = {
 
     // set headers
 		doRequest = request[method](this.urlRoot+endpoint)
-                      
+
 
     if (isEmpty(fileData)) {
       doRequest.accept('json');
@@ -104,19 +106,19 @@ const API = {
 	      	let errors = response.body ? response.body.errors : 'Something bad happened';
       		let statusCode = response.status;
 
-      		if (this.onRequestError) this.onRequestError(response);          
+      		if (this.onRequestError) this.onRequestError(response);
 
-          onError(response);	        
+          onError(response);
 	      } else {
-	      	onSuccess(response);          
+	      	onSuccess(response);
         }
 
         /*
           we resolve promise even if request
           was not successfull to reduce boilerplat
-          + because we  typically don't want ui do 
+          + because we  typically don't want ui do
           have some specific behaviour in this case
-         */        
+         */
 
         resolve(response);
 
