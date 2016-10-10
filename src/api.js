@@ -32,7 +32,7 @@ const API = {
 
 		let { method, data, endpoint, onSuccess, onError, fileData } = options;
     let requestData, requestHeaders, doRequest;
-    const request = this.superagent || superagent;
+    const request = options.superagent || this.superagent || superagent;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
