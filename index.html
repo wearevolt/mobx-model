@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Introduction | Mobx-model npm version</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This is a library to simplify mobx data stores that mimic backend models. It includes simple class that makes API requests and executes callbacks on success/failure. Model attributes and relations are then updated from server-side json. Note that you will need es6 support with static properties to use mobx-model.">
+        <meta name="generator" content="GitBook 2.4.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./docs/defining_attributes.html" />
+    
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="0" data-basepath="." data-revision="Wed Oct 12 2016 14:00:16 GMT+0300 (MSK)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter active" data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/defining_attributes.html">
+            
+                
+                    <a href="./docs/defining_attributes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Defining attributes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/defining_relations.html">
+            
+                
+                    <a href="./docs/defining_relations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Defining relations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/base_model_config.html">
+            
+                
+                    <a href="./docs/base_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Base model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/api_config.html">
+            
+                
+                    <a href="./docs/api_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        API config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/individual_model_config.html">
+            
+                
+                    <a href="./docs/individual_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Individual model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/model_static_methods.html">
+            
+                
+                    <a href="./docs/model_static_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Model static methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/model_instance_methods.html">
+            
+                
+                    <a href="./docs/model_instance_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Model instance methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="docs/api_usage.html">
+            
+                
+                    <a href="./docs/api_usage.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        API usage
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >Mobx-model npm version</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <a id="edit-link" href="https://github.com/ikido/mobx-model/tree/master/README.md" class="btn fa fa-edit pull-left">&nbsp;&nbsp;Edit This Page</a><h1 id="mobx-model-npm-version-https-badge-fury-io-js-mobx-model-svg-https-badge-fury-io-js-mobx-model">Mobx-model <a href="https://badge.fury.io/js/mobx-model" target="_blank"><img src="https://badge.fury.io/js/mobx-model.svg" alt="npm version"></a></h1>
+<p>This is a library to simplify <a href="https://github.com/mobxjs/mobx" target="_blank">mobx</a> data stores that mimic backend models. It includes simple class that makes API requests and executes callbacks on success/failure. Model attributes and relations are then updated from server-side json. Note that you will need es6 support with static properties to use mobx-model.</p>
+<p>The idea is to have single source of truth &#x2014; graph of model objects that reference each other. Each model class holds collection of cached model instances available through <code>Model.all()</code> and <code>Model.get(:id)</code> methods. </p>
+<p>Mobx-model is not a replacement for Backbone.Model since it supports single source of truth principle. Model instance methods that are created by defining attributes and relations are intended to be used as a way to access state of the models. To hydrate the state you have to use <code>set</code> method on an instance or a class, that will set or update your model attributes and trigger re-renders on appropriate components thanks to <code>mobx-react</code>. </p>
+<p>You can also define actions on model classes or instances or on the <code>BaseModel</code> itself that will communicate with your data store &#x2014; API, localstorage or whatever you need, just make sure to call <code>set</code> when you need to update state of the models.</p>
+<p>This library is not perfect, but it works for us together with Rails + ActiveModel Serializers 0.8.3 on the backend, making work with normalized database structure much easier.  If you want to make it work with your backend setup then raise an issue &#x2014; I&apos;ll be glad to help you out to make library universal.</p>
+<p>Note that currently polymorphic associations are not supported, though there are some workarounds.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <a href="./docs/defining_attributes.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Defining attributes"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-github/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-anker-enable/anker.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-disqus/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"edit-link":{"base":"https://github.com/ikido/mobx-model/tree/master","label":"Edit This Page"},"github":{"url":"https://github.com/ikido/mobx-model/"},"disqus":{"shortName":"mobx-model"},"ga":{"token":"UA-63820458-2"}};
+    gitbook.start(config);
+});
+</script>
+
+        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-63820458-2', 'auto');ga('send', 'pageview');</script>
+    </body>
+    
+</html>

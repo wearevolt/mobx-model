@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Model instance methods | Mobx-model npm version</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../docs/api_usage.html" />
+    
+    
+    <link rel="prev" href="../docs/model_static_methods.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="7" data-basepath=".." data-revision="Wed Oct 12 2016 14:00:16 GMT+0300 (MSK)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/defining_attributes.html">
+            
+                
+                    <a href="../docs/defining_attributes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Defining attributes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/defining_relations.html">
+            
+                
+                    <a href="../docs/defining_relations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Defining relations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/base_model_config.html">
+            
+                
+                    <a href="../docs/base_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Base model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/api_config.html">
+            
+                
+                    <a href="../docs/api_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        API config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/individual_model_config.html">
+            
+                
+                    <a href="../docs/individual_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Individual model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/model_static_methods.html">
+            
+                
+                    <a href="../docs/model_static_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Model static methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="7" data-path="docs/model_instance_methods.html">
+            
+                
+                    <a href="../docs/model_instance_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Model instance methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="docs/api_usage.html">
+            
+                
+                    <a href="../docs/api_usage.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        API usage
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Mobx-model npm version</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <a id="edit-link" href="https://github.com/ikido/mobx-model/tree/master/docs/model_instance_methods.md" class="btn fa fa-edit pull-left">&nbsp;&nbsp;Edit This Page</a><h1 id="model-instance-methods">Model instance methods</h1>
+<pre><code class="lang-js">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BaseModel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;mobx-model&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Post</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">static</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token string">&apos;&apos;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">static</span> relations <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            type<span class="token punctuation">:</span> <span class="token string">&apos;hasMany&apos;</span><span class="token punctuation">,</span>
+            relatedModel<span class="token punctuation">:</span> <span class="token string">&apos;Comment&apos;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="model-set">model.set</h2>
+<p>Set method is used to update model instance&apos;s attributes, its relations and attributes of relations recursively. If relation had a <code>reverseRelation</code> property defined or set to <code>true</code> then this model instance will be made available at <code>reverseRelation.propertyName</code></p>
+<pre><code class="lang-js"><span class="token keyword">let</span> json <span class="token operator">=</span> <span class="token punctuation">{</span>
+    comments<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+            content<span class="token punctuation">:</span> <span class="token string">&apos;nice post!&apos;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    post<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        title<span class="token punctuation">:</span> <span class="token string">&apos;new title&apos;</span><span class="token punctuation">,</span>
+        comment_ids<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> post <span class="token operator">=</span> Post<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+post<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token punctuation">{</span> modelJson<span class="token punctuation">:</span> json<span class="token punctuation">.</span>post<span class="token punctuation">,</span> topLevelJson<span class="token punctuation">:</span> json <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="options">Options</h4>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelJson</code></td>
+<td><code>object</code></td>
+<td>Json with model&apos;s attributes. It can contain either ids of relations deisgnated by the relation <code>foreignKey</code> property, or embedded json for relations designated by <code>jsonKey</code> property in relation config</td>
+</tr>
+<tr>
+<td><code>topLevelJson</code></td>
+<td><code>object</code></td>
+<td>When looking up relations referenced by ids <code>topLevelJsonKey</code> relation config property is used to find object in <code>topLevelJson</code> that contains related objects</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-urlroot-model-jsonkey">model.urlRoot, model.jsonKey</h2>
+<p>Just couple of shorthand methods that returns prefix for model&apos;s RESTful methods and model&apos;s key to find its attributes in JSON. Both methods are usually used in server actions</p>
+<pre><code class="lang-js"><span class="token keyword">class</span> <span class="token class-name">Post</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span> <span class="token punctuation">{</span>
+
+    <span class="token function">update</span><span class="token punctuation">(</span>attributes <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> API<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span><span class="token punctuation">,</span>
+        data<span class="token punctuation">:</span> attributes<span class="token punctuation">,</span>
+        endpoint<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>urlRoot<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">,</span>
+        onSuccess<span class="token punctuation">:</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> json <span class="token operator">=</span> response<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token punctuation">{</span> modelJson<span class="token punctuation">:</span> json<span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>jsonKey<span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="model-oninitialize">model.onInitialize</h3>
+<p>This is a hook called when model instance is initialized.
+Redefine it in your models to add functionality to each model instance, such as custom observable attribute</p>
+<pre><code>class Model extends BaseModel {
+    onInitialize() {
+        this.observableMeta = observable({
+            action: null,
+            someStuff: null
+        })
+    }
+}
+</code></pre><h3 id="model-ondestroy">model.onDestroy</h3>
+<p>This is a shorthand method that calls all methods listed below &#x2014; <code>removeSelfFromCollection</code>, <code>destroyDependentRelations</code>, <code>removeSelfFromRelations</code>. It does all cleanup that is neccessary when model is being destroyed.</p>
+<h3 id="model-removeselffromcollection">model.removeSelfFromCollection</h3>
+<p>Removes this model instance from collection of cached models of this class</p>
+<h3 id="model-destroydependentrelations">model.destroyDependentRelations</h3>
+<p>Finds relations that have <code>onDestroy: &apos;destroyRelation&apos;</code> config option and calls <code>onDestroy</code> method on those relations, removing them from model cache.</p>
+<h3 id="model-removeselffromrelations">model.removeSelfFromRelations</h3>
+<p>Finds relations that have <code>onDestroy: &apos;removeSelf&apos;</code> config option set (which is default) and removes this model instance from those relation model instances</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../docs/model_static_methods.html" class="navigation navigation-prev " aria-label="Previous page: Model static methods"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../docs/api_usage.html" class="navigation navigation-next " aria-label="Next page: API usage"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-github/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-anker-enable/anker.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-disqus/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"edit-link":{"base":"https://github.com/ikido/mobx-model/tree/master","label":"Edit This Page"},"github":{"url":"https://github.com/ikido/mobx-model/"},"disqus":{"shortName":"mobx-model"},"ga":{"token":"UA-63820458-2","configuration":"auto"}};
+    gitbook.start(config);
+});
+</script>
+
+        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-63820458-2', 'auto');ga('send', 'pageview');</script>
+    </body>
+    
+</html>

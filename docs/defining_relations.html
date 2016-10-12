@@ -1,0 +1,473 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Defining relations | Mobx-model npm version</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../docs/base_model_config.html" />
+    
+    
+    <link rel="prev" href="../docs/defining_attributes.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2" data-basepath=".." data-revision="Wed Oct 12 2016 14:00:16 GMT+0300 (MSK)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/defining_attributes.html">
+            
+                
+                    <a href="../docs/defining_attributes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Defining attributes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2" data-path="docs/defining_relations.html">
+            
+                
+                    <a href="../docs/defining_relations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Defining relations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/base_model_config.html">
+            
+                
+                    <a href="../docs/base_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Base model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/api_config.html">
+            
+                
+                    <a href="../docs/api_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        API config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/individual_model_config.html">
+            
+                
+                    <a href="../docs/individual_model_config.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Individual model config
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/model_static_methods.html">
+            
+                
+                    <a href="../docs/model_static_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Model static methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/model_instance_methods.html">
+            
+                
+                    <a href="../docs/model_instance_methods.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Model instance methods
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="docs/api_usage.html">
+            
+                
+                    <a href="../docs/api_usage.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        API usage
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Mobx-model npm version</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <a id="edit-link" href="https://github.com/ikido/mobx-model/tree/master/docs/defining_relations.md" class="btn fa fa-edit pull-left">&nbsp;&nbsp;Edit This Page</a><h1 id="defining-relations">Defining relations</h1>
+<p>To use relations you must extend <code>BaseModel</code> class and add static <code>relations</code> property</p>
+<pre><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> BaseModel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;mobx-model&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Post</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span>
+  <span class="token keyword">static</span> relations <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      type<span class="token punctuation">:</span> <span class="token string">&apos;hasMany&apos;</span><span class="token punctuation">,</span>
+      relatedModel<span class="token punctuation">:</span> <span class="token string">&apos;Comments&apos;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+end
+</code></pre>
+<h2 id="relation-config-options">Relation config options</h2>
+<p>Note that if config option has a default it can be ommitted when declaring relations. Note that defaults are dynamic, so that you can incrementally override defautls as you need.</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td></td>
+<td>Can be <code>hasOne</code> or <code>hasMany</code>. An observable property defined by <code>propertyName</code> will be added to instance of model. If relation is <code>hasMany</code> an observable array will be added</td>
+</tr>
+<tr>
+<td><code>relatedModel</code></td>
+<td><code>string</code></td>
+<td></td>
+<td>Name of the model that will be supplied to <code>getModel</code> method to get related model class. We need this due to circular dependency problem when models refer to each other</td>
+</tr>
+<tr>
+<td><code>propertyName</code></td>
+<td><code>string</code></td>
+<td><code>relatedModel</code> with lowercased first letter for <code>hasOne</code> and is further pluralized for <code>hasMany</code></td>
+<td>Name of the property that will be set on model instance. For example if model is <code>Post</code> and <code>relatedModel</code> is <code>BestComment</code> then when relation is <code>hasOne</code> propertyName defaults to <code>bestComment</code>. When relation is <code>hasMany</code> it defaults to <code>bestComments</code> and can be later accessed with <code>post.bestComments</code></td>
+</tr>
+<tr>
+<td><code>jsonKey</code></td>
+<td><code>string</code></td>
+<td>uderscored <code>propertyName</code></td>
+<td>Is used to get relation json from provided model json. When <code>propertyName</code> is <code>bestComments</code> relation json by default is expected to be under <code>best_comments</code> key, and when <code>propertyName</code> is <code>bestComment</code> then it defaults to <code>best_comment</code></td>
+</tr>
+<tr>
+<td><code>topLevelJsonKey</code></td>
+<td><code>string</code></td>
+<td>tableized <code>propertyName</code></td>
+<td>Is used to get relation json from normalized array of objects in top level. if <code>propertyName</code> is <code>bestComments</code> than by default top level json must have <code>best_comments</code> key that is an array of objects</td>
+</tr>
+<tr>
+<td><code>foreignKey</code></td>
+<td><code>string</code></td>
+<td>foreign key derived from <code>propertyName</code></td>
+<td>Used to look up relation ids in model json, that later will be used to find relation json in top level defined by <code>topLevelJsonKey</code>. If <code>propertyName</code> is <code>bestComment</code> and relation type is <code>hasOne</code> then <code>foreignKey</code> defaults to <code>best_comment_id</code>. If <code>propertyName</code> is <code>bestComments</code> and relation type is <code>hasMany</code> then <code>foreignKey</code> defaults to <code>best_comment_ids</code></td>
+</tr>
+<tr>
+<td><code>setMethodName</code></td>
+<td><code>string</code></td>
+<td><code>set</code> + singularized <code>propertyName</code> with uppercased first letter</td>
+<td>Name of the instance method to set related model, for <code>Post</code> that <code>hasMany</code> <code>Comment</code> it will default to <code>setComment</code></td>
+</tr>
+<tr>
+<td><code>removeMethodName</code></td>
+<td><code>string</code></td>
+<td><code>remove</code> + singularized <code>propertyName</code> with uppercased first letter</td>
+<td>Name of the instance method to remove related model, for <code>Post</code> that <code>hasMany</code> <code>Comment</code> it will default to <code>removeComment</code></td>
+</tr>
+<tr>
+<td><code>reverseRelation</code></td>
+<td><code>boolean</code> or <code>object</code></td>
+<td><code>false</code></td>
+<td>If set to true or to an object then related model will have a property defined by <code>reverseRelation.propertyName</code> be set to this model instance. E.g. <code>Post</code> that <code>hasMany</code> <code>Comment</code> and <code>reverseRelation: true</code> will make <code>comment.post</code> available if <code>Post</code> relation is also set for <code>Comment</code> as <code>hasOne</code> relation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reverse-relation-config-options">Reverse relation config options</h2>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onDestroy</code></td>
+<td><code>string</code></td>
+<td><code>removeSelf</code></td>
+<td>Can be <code>removeSelf</code> or <code>destroyRelation</code>. Defines what needs to be done when relation is destroyed. When option is <code>removeSelf</code> this model will be removed from reverse relation, e.g. a comment will be removed from list of comments for a post. When it is set to <code>destroyRelation</code> then related model will be destroyed when this model is destroyed, e.g. when deleting a post we can delete all related comments.</td>
+</tr>
+<tr>
+<td><code>propertyName</code></td>
+<td><code>string</code></td>
+<td>this model&apos;s name with lowercased first letter</td>
+<td>{roperty name to set or remove on reverse relation. If <code>Post</code> has <code>Comment</code> then defaulP <code>reverseRelation.propertyName</code> will be <code>post</code>. Note that it should be singular even for <code>hasMany</code> relations</td>
+</tr>
+<tr>
+<td><code>setMethodName</code></td>
+<td><code>string</code></td>
+<td><code>set</code> + <code>reverseRelation.propertyName</code> with uppercased first letter</td>
+<td>Instance method name on related model to set reverse relation. For <code>Post</code> that <code>hasMany</code> <code>Comment</code> it will default to <code>setPost</code></td>
+</tr>
+<tr>
+<td><code>removeMethodName</code></td>
+<td><code>string</code></td>
+<td><code>remove</code> + <code>reverseRelation.propertyName</code> with uppercased first letter</td>
+<td>Instance method name on related model to remove reverse relation. For <code>Post</code> that <code>hasMany</code> <code>Comment</code> it will default to <code>removePost</code></td>
+</tr>
+</tbody>
+</table>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../docs/defining_attributes.html" class="navigation navigation-prev " aria-label="Previous page: Defining attributes"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../docs/base_model_config.html" class="navigation navigation-next " aria-label="Next page: Base model config"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-github/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-anker-enable/anker.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-disqus/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"edit-link":{"base":"https://github.com/ikido/mobx-model/tree/master","label":"Edit This Page"},"github":{"url":"https://github.com/ikido/mobx-model/"},"disqus":{"shortName":"mobx-model"},"ga":{"token":"UA-63820458-2","configuration":"auto"}};
+    gitbook.start(config);
+});
+</script>
+
+        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-63820458-2', 'auto');ga('send', 'pageview');</script>
+    </body>
+    
+</html>
