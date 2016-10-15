@@ -1,6 +1,6 @@
 'use strict';
 
-import request from 'superagent';
+import superagent_default from 'superagent';
 import qs from 'qs';
 import BPromise from 'bluebird';
 
@@ -32,7 +32,7 @@ const API = {
 
 		let { method, data, endpoint, onSuccess, onError, fileData, superagent } = options;
     let requestData, requestHeaders, doRequest;
-    const request = superagent || this.superagent || request;
+    const request = superagent || this.superagent || superagent_default;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
