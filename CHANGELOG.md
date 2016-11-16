@@ -1,5 +1,15 @@
 ## Changelog
 
+### 0.0.28
+
+* fix issue default superagent is set incorrectly
+* cleanup `extraneous` modules
+* add .idea directory in to git ignore file
+
+### 0.0.27
+
+Passing superagent as config option.
+
 ### 0.0.26
 
 Added onInitialize hook for model instances
