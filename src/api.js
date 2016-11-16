@@ -1,6 +1,6 @@
 'use strict';
 
-import superagent_default from 'superagent';
+import superagentDefault from 'superagent';
 import qs from 'qs';
 import BPromise from 'bluebird';
 
@@ -32,7 +32,7 @@ const API = {
 
 		let { method, data, endpoint, onSuccess, onError, fileData, superagent } = options;
     let requestData, requestHeaders, doRequest;
-    const request = superagent || this.superagent || superagent_default;
+    const request = superagent || this.superagent || superagentDefault;
 
 		if (!method) { method = 'get' }
 		if (!data) { data = {} }
@@ -49,7 +49,7 @@ const API = {
     }
 
     // set headers
-		doRequest = request[method](this.urlRoot+endpoint)
+		doRequest = request[method](this.urlRoot+endpoint);
 
 
     if (isEmpty(fileData)) {
@@ -96,15 +96,15 @@ const API = {
       );
     }
 
-    return new BPromise( (resolve, reject) => {
+    return new BPromise( (resolve) => {
 
       // send request and act upon result
     	doRequest.end( (err, response) => {
         if (this.onRequestCompleted) this.onRequestCompleted(response);
 
 	      if (!response.ok) {
-	      	let errors = response.body ? response.body.errors : 'Something bad happened';
-      		let statusCode = response.status;
+	      	//let errors = response.body ? response.body.errors : 'Something bad happened';
+      		//let statusCode = response.status;
 
       		if (this.onRequestError) this.onRequestError(response);
 
@@ -127,6 +127,6 @@ const API = {
     });
 
 	}
-}
+};
 
 export default API;
