@@ -1,9 +1,8 @@
 import { 
   transaction, extendObservable, isObservableArray, asFlat
 } from 'mobx';
-import { tableize, underscore } from 'inflection';
+import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
-import isArray from 'lodash/isArray';
 import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
 
@@ -236,6 +235,38 @@ class BaseModel {
         }
       }
     })
+  }
+
+  toJSON () {
+    const { id, constructor } = this;
+    const { attributes, relations } = constructor;
+
+    // collect attributes
+    const attributeValues = Object.keys(attributes || {}).reduce((values, attributeName) => {
+      values[attributeName] = this[attributeName];
+      return values;
+    }, {});
+
+    // collect relation models id
+    const relationValues = (relations || []).reduce((values, {type, propertyName, foreignKey}) => {
+      const camelizedForeignKey = camelize(foreignKey, true);
+
+      if (type === 'hasMany') {
+        values[camelizedForeignKey] = (this[propertyName] || []).slice().map(model => model.id);
+      }
+
+      if (type === 'hasOne') {
+        values[camelizedForeignKey] = (this[propertyName] || {}).id;
+      }
+
+      return values;
+    }, {});
+
+    return {
+      id,
+      ...attributeValues,
+      ...relationValues,
+    };
   }
 
 }
