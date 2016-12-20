@@ -91,8 +91,21 @@ const model = AModel.set({ modelJson, topLevelJson });
 
 describe('Use property modelName first insead constructor.name', () => {
 
-  it("should set model value", function() {
-    expect(model.value).to.equal('foo');
+  it("should have different constructor.name and model name", function() {
+    expect(model.constructor.name !== model.constructor.modelName).to.equal(true);
+  });
+
+  describe('urlRoot should calculated by `modelName`', () => {
+
+    it("for model class", function() {
+      expect(AModel.urlRoot).to.equal('/alpha_models');
+      expect(model.constructor.urlRoot).to.equal('/alpha_models');
+    });
+
+    it("for model item", function() {
+      expect(model.urlRoot).to.equal('/alpha_models');
+    });
+
   });
 
   describe('hasOne', () => {
