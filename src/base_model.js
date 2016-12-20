@@ -273,7 +273,7 @@ class BaseModel {
 
 Object.defineProperty(BaseModel, 'urlRoot', {
   get: function() {
-    return this._urlRoot ? this._urlRoot : '/'+tableize(this.name);
+    return this._urlRoot ? this._urlRoot : '/'+tableize(this.modelName || this.name);
   },
   set: function(value) {
     this._urlRoot = value;
@@ -282,7 +282,7 @@ Object.defineProperty(BaseModel, 'urlRoot', {
 
 Object.defineProperty(BaseModel, 'jsonKey', {
   get: function() {
-    return this._jsonKey ? this._jsonKey : underscore(this.name);
+    return this._jsonKey ? this._jsonKey : underscore(this.modelName || this.name);
   },
   set: function(value) {
     this._jsonKey = value;
