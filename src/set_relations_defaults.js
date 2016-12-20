@@ -48,7 +48,7 @@ export default function setRelationsDefaults(model) {
 
     // property name on model instance to relation(s)
     if (!relation.propertyName) {
-      relation.propertyName = lowercaseFirstLetter(relation.relatedModel.name);
+      relation.propertyName = lowercaseFirstLetter(relation.relatedModel.modelName || relation.relatedModel.name);
 
       if (relation.isHasMany) {
         relation.propertyName = pluralize(relation.propertyName)
@@ -100,7 +100,7 @@ export default function setRelationsDefaults(model) {
       }
 
       if (!reverseRelation.propertyName) {
-        reverseRelation.propertyName = lowercaseFirstLetter(model.constructor.name);
+        reverseRelation.propertyName = lowercaseFirstLetter(model.constructor.modelName || model.constructor.name);
       }
 
       let name = upperCaseFirstLetter(reverseRelation.propertyName);
