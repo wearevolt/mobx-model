@@ -1,6 +1,6 @@
 {
   "name": "mobx-model",
-  "version": "0.0.26",
+  "version": "0.0.31",
   "dependencies": {
     "async": {
       "version": "1.5.2",
