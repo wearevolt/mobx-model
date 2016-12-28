@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { isFunction } from 'lodash';
-import { BaseModel } from '../../src/index';
+import { BaseModel } from '../../lib/index';
 
 
 class AModel extends BaseModel {
