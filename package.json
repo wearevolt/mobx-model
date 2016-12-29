@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --reporter spec --compilers js:babel-core/register test/index.js",
     "test-watch": "mocha --reporter spec --compilers js:babel-core/register test/index.js --recursive --watch",
-    "prepublish": "npm run clean && npm run build",
+    "prepublish": "npm run clean && npm run build && npm run test",
     "clean": "rm -rf lib/",
     "build": "babel src --out-dir lib --source-maps",
     "docs:prepare": "gitbook install",

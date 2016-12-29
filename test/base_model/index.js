@@ -5,4 +5,5 @@ describe('BaseModel', () => {
   require('./relations');
   require('./to_json');
   require('./model_name_prop');
+  require('./restful_actions');
 });
