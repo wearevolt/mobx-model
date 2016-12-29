@@ -1,5 +1,25 @@
 ## Changelog
 
+### 0.0.32
+
+Add common RESTful actions to BaseModel
+
+### 0.0.31
+
+Library no more build as single JS bundle. 
+Now it builds as several CommonJS files in `/lib/` directory. 
+All external dependencies located in `node_modules`.
+It solve problem with huge dist size.
+
+### 0.0.30
+
+Add usage `modelName` property first instead `name`
+
+### 0.0.29
+
+* Add toJSON() method to BaseModel
+* Fix broken `hasOne` and `hasMany` relations tests
+
 ### 0.0.28
 
 * fix issue default superagent is set incorrectly
