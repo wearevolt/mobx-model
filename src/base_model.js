@@ -111,7 +111,8 @@ class BaseModel {
     Object.defineProperty(this, actionName, {
       get: function() {
         return method.bind(this);
-      }
+      },
+      configurable: true
     });
   };
 
@@ -119,7 +120,8 @@ class BaseModel {
     Object.defineProperty(this.prototype, actionName, {
       get: function() {
         return method.bind(this);
-      }
+      },
+      configurable: true
     });
   };
   
