@@ -13,14 +13,13 @@ import setRelations from './set_relations';
 
 /*
  * This is a hack to allow each model that extends
- * BaseModel to have its own observable collection. Model is
- * assigned an observable collection when first instance of model is
+ * BaseModel to have its own collection. Model is
+ * assigned a collection when first instance of model is
  * created or when Model.all() method is called
  */
 const initObservables = function(target) {
-  if (!target.observables || !isObservableArray(target.observables.collection)) {
-    target.observables = {};
-    extendObservable(target.observables, { collection: asFlat([]) });  
+  if (!target.observables) {
+    target.observables = { collection: [] };
   }
 }
 
@@ -97,7 +96,7 @@ class BaseModel {
   };
 
   static remove = function (model) {
-    if (this.observables && isObservableArray(this.observables.collection)) {
+    if (this.observables && this.observables.collection) {
       this.observables.collection.splice(this.observables.collection.indexOf(model), 1);
     }
   };
