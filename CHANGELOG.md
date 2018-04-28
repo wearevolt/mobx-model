@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.0.33
+
+Made this.observables.collection regular array, not an observable
+
 ### 0.0.32
 
 Add common RESTful actions to BaseModel
