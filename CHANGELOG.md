@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.0.39
+
+Updated mobx to 3.2.2
+
 ### 0.0.33
 
 Made this.observables.collection regular array, not an observable

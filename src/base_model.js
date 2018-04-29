@@ -1,5 +1,5 @@
 import { 
-  transaction, extendObservable, isObservableArray, asFlat
+  runInAction, isObservableArray
 } from 'mobx';
 import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
@@ -28,25 +28,13 @@ class BaseModel {
 
   static attributes = {};
   static relations = [];
-  // static observables = {};
 
   id = null;
   lastSetRequestId = null;  
 
-  // static config = function(options = {}) {
-  //   let { models } = options;
-  //   this.models = models;
-  // };
-
-  /*
-   * NOTE: we access internal mobservable array of values to
-   * prevent notifying observers when we're just getting single
-   * value. This way we'll prevent re-rendering components displaying
-   * single model when collection changes
-   */
   static get = function(id) {
-    let items = result(this, 'observables.$mobx.values.collection.value')   
-    if (items && isObservableArray(items)) {
+    let items = result(this, 'observables.collection')   
+    if (items) {
       let l = items.length;
       for(var i = 0; i < l; i++) {
         if (items[i].id.toString() === id.toString()) return items[i];
@@ -57,8 +45,6 @@ class BaseModel {
   };  
 
   static set = function(options = {}) {
-
-    // console.log('set static', this.name)
 
     let { modelJson, topLevelJson, requestId } = options;
 
@@ -76,7 +62,7 @@ class BaseModel {
 
     let model = this.get(modelJson.id);
     
-    transaction(() => {
+    runInAction(() => {
       if (!model) {
         model = new this({
           modelJson,
@@ -157,7 +143,7 @@ class BaseModel {
       this.lastSetRequestId = requestId;
     }
 
-    transaction(() => {
+    runInAction(() => {
       setAttributes({ model, modelJson });
       
       setRelations({
@@ -182,7 +168,7 @@ class BaseModel {
   }
 
   onDestroy() {    
-    transaction(() => {
+    runInAction(() => {
       this.removeSelfFromCollection();        
       this.destroyDependentRelations();
       this.removeSelfFromRelations();
