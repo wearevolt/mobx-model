@@ -1,4 +1,3 @@
-
-describe("Library `mobx-model`", function() {
-  require('./base_model');
+describe('Library `mobx-model`', function() {
+  require('./mobx_model');
 });
