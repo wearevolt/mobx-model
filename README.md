@@ -1,4 +1,4 @@
-# Mobx-model [![npm version](https://badge.fury.io/js/mobx-model.svg)](https://badge.fury.io/js/mobx-model)
+# Mobx-model 1.0 [![npm version](https://badge.fury.io/js/mobx-model.svg)](https://badge.fury.io/js/mobx-model)
 
 This is a library to simplify [mobx](https://github.com/mobxjs/mobx) data stores that mimic backend models. It includes simple class that makes API requests and executes callbacks on success/failure. Model attributes and relations are then updated from server-side json. Note that you will need es6 support with static properties to use mobx-model.
 
