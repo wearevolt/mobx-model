@@ -1,3 +1,3 @@
-import MobxModel from './base_model';
+import MobxModel from './mobx_model';
 
 export default MobxModel;
