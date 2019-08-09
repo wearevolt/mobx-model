@@ -54,11 +54,9 @@ class OModel extends MobxModel {
   ];
 }
 
-const models = { AlphaModel: AModel, BettaModel: BModel, OmegaModel: OModel };
-
-MobxModel.getModel = function(modelName) {
-  return models[modelName];
-};
+MobxModel.config({
+  models: { AlphaModel: AModel, BettaModel: BModel, OmegaModel: OModel },
+});
 
 const topLevelJson = {
   model: {

@@ -28,6 +28,14 @@ class MobxModel {
   id = null;
   lastSetRequestId = null;
 
+  static config(options = {}) {
+    const { models = [] } = options;
+
+    this.getModel = function(modelName) {
+      return models[modelName];
+    };
+  }
+
   static get = function(id) {
     let items = result(this, 'observables.collection');
     if (items) {

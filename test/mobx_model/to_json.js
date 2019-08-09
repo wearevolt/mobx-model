@@ -49,11 +49,9 @@ class OmegaModel extends MobxModel {
   ];
 }
 
-const models = { AlphaModel, BettaModel, OmegaModel };
-
-MobxModel.getModel = function(modelName) {
-  return models[modelName];
-};
+MobxModel.config({
+  models: { AlphaModel, BettaModel, OmegaModel },
+});
 
 describe('toJSON()', () => {
   it('method should exist', function() {
