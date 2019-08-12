@@ -30,7 +30,7 @@ class MobxModel {
   lastSetRequestId = null;
 
   static config(options = {}) {
-    const { mobx, models = [], plugins = [] } = options;
+    const { mobx, models = {}, plugins = [] } = options;
 
     if (!mobx)
       throw Error(
