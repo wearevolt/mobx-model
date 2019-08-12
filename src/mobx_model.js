@@ -1,13 +1,13 @@
-import { runInAction } from 'mobx';
 import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
 import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
 
-import initAttributes from './init_attributes';
 import setAttributes from './set_attributes';
-import initRelations from './init_relations';
 import setRelations from './set_relations';
+import setRelationsDefaults from './set_relations_defaults';
+import setRelatedModel from './set_related_model';
+import removeRelatedModel from './remove_related_model';
 
 /*
  * This is a hack to allow each model that extends
@@ -32,6 +32,11 @@ class MobxModel {
   static config(options = {}) {
     const { mobx, models = [], plugins = [] } = options;
 
+    if (!mobx)
+      throw Error(
+        '"Configuration attribute" `mobx` must be set in MobxModel.config({ mobx })...',
+      );
+
     this.$mobx = mobx;
 
     this.getModel = function(modelName) {
@@ -52,6 +57,8 @@ class MobxModel {
   };
 
   static set = function(options = {}) {
+    const { runInAction } = this.$mobx;
+
     let { modelJson, topLevelJson, requestId } = options;
 
     /*
@@ -126,13 +133,48 @@ class MobxModel {
       this.id = modelJson.id;
     }
 
-    initAttributes({ model: this });
-    initRelations({ model: this });
+    this.initAttributes();
+    this.initRelations();
 
     this.onInitialize();
   }
 
+  initAttributes() {
+    const { extendObservable } = this.constructor.$mobx;
+    extendObservable(this, this.constructor.attributes);
+  }
+
+  initRelations() {
+    const model = this;
+    const { extendObservable } = this.constructor.$mobx;
+
+    // set defaults for relations
+    setRelationsDefaults(model);
+
+    model.constructor.relations.forEach(relation => {
+      extendObservable(model, {
+        [relation.propertyName]: relation.initialValue,
+      });
+
+      // add alias method to set relation to model's instance
+      model[relation.setMethodName] = function(options = {}) {
+        Object.assign(options, { relation, model });
+        return setRelatedModel(options);
+      }.bind(model);
+
+      // add alias method to remove relation to model's instance
+      model[relation.removeMethodName] = function(relatedModel) {
+        return removeRelatedModel({
+          model,
+          relation,
+          relatedModel,
+        });
+      }.bind(model);
+    });
+  }
   set(options = {}) {
+    const { runInAction } = this.constructor.$mobx;
+
     let { requestId, modelJson, topLevelJson } = options;
     let model = this;
 
