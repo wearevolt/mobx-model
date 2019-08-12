@@ -1,3 +1,4 @@
+import * as mobx from 'mobx';
 import { expect } from 'chai';
 import { isFunction } from 'lodash';
 import MobxModel from '../../lib/index';
@@ -50,6 +51,7 @@ class OmegaModel extends MobxModel {
 }
 
 MobxModel.config({
+  mobx,
   models: { AlphaModel, BettaModel, OmegaModel },
 });
 

@@ -22,6 +22,7 @@ const initObservables = function(target) {
 };
 
 class MobxModel {
+  static $mobx = null;
   static attributes = {};
   static relations = [];
 
@@ -29,7 +30,9 @@ class MobxModel {
   lastSetRequestId = null;
 
   static config(options = {}) {
-    const { models = [] } = options;
+    const { mobx, models = [], plugins = [] } = options;
+
+    this.$mobx = mobx;
 
     this.getModel = function(modelName) {
       return models[modelName];
