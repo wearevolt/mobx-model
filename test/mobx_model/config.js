@@ -1,16 +1,5 @@
-import * as mobx from 'mobx';
 import { expect, assert } from 'chai';
 import MobxModel from '../../lib/index';
-
-class TestModel extends MobxModel {
-  static modelName = 'TestModel';
-
-  static attributes = {
-    value: null,
-  };
-
-  static relations = [];
-}
 
 describe('MobxMode.config', () => {
   it('should contain method config()', function() {
