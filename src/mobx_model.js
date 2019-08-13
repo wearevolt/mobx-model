@@ -186,6 +186,7 @@ class MobxModel {
       }.bind(model);
     });
   }
+
   set(options = {}) {
     const { runInAction } = this.constructor.$mobx;
 
