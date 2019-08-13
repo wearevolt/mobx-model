@@ -28,4 +28,6 @@ describe('MobxMode.config', () => {
       'Configuration attribute" `mobx` must be set in MobxModel.config({ mobx })...',
     );
   });
+
+  require('./config_plugins');
 });

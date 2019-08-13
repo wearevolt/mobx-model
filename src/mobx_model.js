@@ -2,6 +2,8 @@ import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
 import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
+import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 
 import setAttributes from './set_attributes';
 import setRelations from './set_relations';
@@ -42,13 +44,27 @@ class MobxModel {
     this.getModel = function(modelName) {
       return models[modelName];
     };
+
+    plugins.forEach(pluginItem => {
+      const [plugin, options] = [].concat(pluginItem);
+
+      const pluginFunc = isString(plugin)
+        ? require(plugin)
+        : isFunction(plugin)
+          ? plugin
+          : null;
+
+      if (isFunction(pluginFunc)) {
+        pluginFunc(this, options);
+      }
+    });
   }
 
   static get = function(id) {
     let items = result(this, 'observables.collection');
     if (items) {
       let l = items.length;
-      for (var i = 0; i < l; i++) {
+      for (let i = 0; i < l; i++) {
         if (items[i].id.toString() === id.toString()) return items[i];
       }
     }
@@ -88,8 +104,6 @@ class MobxModel {
 
       model.set({ modelJson, topLevelJson, requestId });
     });
-
-    // console.log('set', model)
 
     return model;
   };
