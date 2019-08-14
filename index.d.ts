@@ -47,7 +47,7 @@ declare namespace MobxModel {
   export interface MobxModelConfigOptions {
     mobx: any;
     models: object;
-    plugins: { (target: MobxModel, options?: object): void }[];
+    plugins?: { (target: MobxModel, options?: object): void }[];
   }
 
   export interface MobxModelSetOptions {
