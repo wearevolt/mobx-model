@@ -128,6 +128,9 @@ class MobxModel {
     if (isNameAsFunction && !actionName.name)
       throw Error('Class action must have name!');
 
+    if (!isNameAsFunction && !isFunction(method))
+      throw Error('Class action method not set!');
+
     Object.defineProperty(
       this,
       isNameAsFunction ? actionName.name : actionName,
@@ -144,6 +147,9 @@ class MobxModel {
 
     if (isNameAsFunction && !actionName.name)
       throw Error('Action must have name!');
+
+    if (!isNameAsFunction && !isFunction(method))
+      throw Error('Action method not set!');
 
     Object.defineProperty(
       this.prototype,
