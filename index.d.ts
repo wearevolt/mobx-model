@@ -16,9 +16,9 @@ declare class MobxModel {
 
   static all(): object[];
 
-  static addClassAction(actionName: string, method: Function): void;
+  static addClassAction(actionName: string | Function, method?: Function): void;
 
-  static addAction(actionName: string, method: Function): void;
+  static addAction(actionName: string | Function, method?: Function): void;
 
   constructor(options: MobxModel.MobxModelSetOptions);
 

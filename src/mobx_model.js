@@ -123,19 +123,37 @@ class MobxModel {
   };
 
   static addClassAction(actionName, method) {
-    Object.defineProperty(this, actionName, {
-      get: function() {
-        return method.bind(this);
+    const isNameAsFunction = isFunction(actionName);
+
+    if (isNameAsFunction && !actionName.name)
+      throw Error('Class action must have name!');
+
+    Object.defineProperty(
+      this,
+      isNameAsFunction ? actionName.name : actionName,
+      {
+        get: function() {
+          return (isNameAsFunction ? actionName : method).bind(this);
+        },
       },
-    });
+    );
   }
 
   static addAction(actionName, method) {
-    Object.defineProperty(this.prototype, actionName, {
-      get: function() {
-        return method.bind(this);
+    const isNameAsFunction = isFunction(actionName);
+
+    if (isNameAsFunction && !actionName.name)
+      throw Error('Action must have name!');
+
+    Object.defineProperty(
+      this.prototype,
+      isNameAsFunction ? actionName.name : actionName,
+      {
+        get: function() {
+          return (isNameAsFunction ? actionName : method).bind(this);
+        },
       },
-    });
+    );
   }
 
   constructor(options = {}) {
