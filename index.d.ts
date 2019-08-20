@@ -37,11 +37,21 @@ declare class MobxModel {
 
 declare namespace MobxModel {
   export interface MobxModelRelation {
-    type: 'hasOne' | 'hasMany';
+    type: string;
     relatedModel: string;
     reverseRelation?: boolean;
     propertyName?: string;
     topLevelJsonKey?: string;
+    foreignKey?: string;
+  }
+
+  export interface MobxModelRelationItem {
+    foreignKey: string;
+    jsonKey: string;
+    topLevelJsonKey: string;
+    type: string;
+    relatedModel: typeof MobxModel;
+    propertyName: string;
   }
 
   export interface MobxModelConfigOptions {
@@ -56,5 +66,11 @@ declare namespace MobxModel {
     requestId?: number | string;
   }
 }
+
+export declare function attribute(target: any, key: string): void;
+
+export declare function relation(
+  relationOptions: MobxModel.MobxModelRelation,
+): (target: any, key: string) => void;
 
 export default MobxModel;
