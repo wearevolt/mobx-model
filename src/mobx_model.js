@@ -248,6 +248,8 @@ class MobxModel {
   onInitialize() {}
 
   onDestroy() {
+    const { runInAction } = this.constructor.$mobx;
+
     runInAction(() => {
       this.removeSelfFromCollection();
       this.destroyDependentRelations();
