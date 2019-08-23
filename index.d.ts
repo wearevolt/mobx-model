@@ -20,9 +20,11 @@ declare class MobxModel {
 
   static addAction(actionName: string | Function, method?: Function): void;
 
+  id: number | string;
+
   constructor(options: MobxModel.MobxModelSetOptions);
 
-  set(options: MobxModel.MobxModelSetOptions): object;
+  set(options: MobxModel.MobxModelSetOptions): void;
 
   urlRoot: string;
 
