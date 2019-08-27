@@ -32,7 +32,8 @@ declare class MobxModel {
 
   onInitialize(): void;
 
-  onDestroy(): void;
+  destroy(): void;
+  onDestroy(): void; // deprecated
 
   toJSON(): object;
 }

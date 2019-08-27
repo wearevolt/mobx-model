@@ -248,6 +248,11 @@ class MobxModel {
   onInitialize() {}
 
   onDestroy() {
+    this.destroy();
+    console.warn('[mobx-model] onDestroy() method is deprecated. Please use destroy() method instead.');
+  }
+
+  destroy() {
     const { runInAction } = this.constructor.$mobx;
 
     runInAction(() => {
