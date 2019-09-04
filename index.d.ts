@@ -8,9 +8,9 @@ declare class MobxModel {
 
   static config(options: MobxModel.MobxModelConfigOptions): void;
 
-  static get(id: number | string): object | null;
+  static get<T>(id: number | string): T | null;
 
-  static set(options: MobxModel.MobxModelSetOptions): object;
+  static set<T>(options: MobxModel.MobxModelSetOptions): T;
 
   static remove(model: object): void;
 
