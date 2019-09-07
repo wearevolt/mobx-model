@@ -26,8 +26,10 @@ declare class MobxModel {
 
   set(options: MobxModel.MobxModelSetOptions): void;
 
+  static urlRoot: string;
   urlRoot: string;
 
+  static jsonKey: string;
   jsonKey: string;
 
   onInitialize(): void;
