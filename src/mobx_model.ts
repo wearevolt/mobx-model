@@ -1,3 +1,5 @@
+/// <reference path="../index.d.ts" />
+
 import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
 import uniqueId from 'lodash/uniqueId';
@@ -17,7 +19,7 @@ import removeRelatedModel from './remove_related_model';
  * assigned a collection when first instance of model is
  * created or when Model.all() method is called
  */
-const initObservables = function(target) {
+const initObservables = function(target: any) {
   if (!target.observables) {
     target.observables = { collection: [] };
   }
@@ -25,13 +27,19 @@ const initObservables = function(target) {
 
 class MobxModel {
   static $mobx = null;
+
+  static urlRoot: string;
+  static jsonKey: string;
+
   static attributes = {};
   static relations = [];
+
+  static getModel: (modelName: string) => MobxModel;
 
   id = null;
   lastSetRequestId = null;
 
-  static config(options = {}) {
+  static config(options: any = {}) {
     const { mobx, models = {}, plugins = [] } = options;
 
     if (!mobx)
@@ -41,18 +49,18 @@ class MobxModel {
 
     this.$mobx = mobx;
 
-    this.getModel = function(modelName) {
+    this.getModel = function(modelName: string) {
       return models[modelName];
     };
 
-    plugins.forEach(pluginItem => {
+    plugins.forEach((pluginItem: any) => {
       const [plugin, options] = [].concat(pluginItem);
 
       const pluginFunc = isString(plugin)
         ? require(plugin)
         : isFunction(plugin)
-          ? plugin
-          : null;
+        ? plugin
+        : null;
 
       if (isFunction(pluginFunc)) {
         pluginFunc(this, options);
@@ -60,8 +68,9 @@ class MobxModel {
     });
   }
 
-  static get = function(id) {
-    let items = result(this, 'observables.collection');
+  static get = function(id: string | number) {
+    const items: any[] = result(this, 'observables.collection');
+
     if (items) {
       let l = items.length;
       for (let i = 0; i < l; i++) {
@@ -72,7 +81,7 @@ class MobxModel {
     return null;
   };
 
-  static set = function(options = {}) {
+  static set = function(options: any = {}) {
     const { runInAction } = this.$mobx;
 
     let { modelJson, topLevelJson, requestId } = options;
@@ -108,7 +117,7 @@ class MobxModel {
     return model;
   };
 
-  static remove = function(model) {
+  static remove = function(model: any) {
     if (this.observables && this.observables.collection) {
       this.observables.collection.splice(
         this.observables.collection.indexOf(model),
@@ -122,10 +131,10 @@ class MobxModel {
     return this.observables.collection.slice();
   };
 
-  static addClassAction(actionName, method) {
+  static addClassAction(actionName: string | Function, method: Function) {
     const isNameAsFunction = isFunction(actionName);
 
-    if (isNameAsFunction && !actionName.name)
+    if (isNameAsFunction && !(actionName as Function).name)
       throw Error('Class action must have name!');
 
     if (!isNameAsFunction && !isFunction(method))
@@ -133,19 +142,21 @@ class MobxModel {
 
     Object.defineProperty(
       this,
-      isNameAsFunction ? actionName.name : actionName,
+      isNameAsFunction ? (actionName as any).name : actionName,
       {
         get: function() {
-          return (isNameAsFunction ? actionName : method).bind(this);
+          return (isNameAsFunction ? (actionName as Function) : method).bind(
+            this,
+          );
         },
       },
     );
   }
 
-  static addAction(actionName, method) {
+  static addAction(actionName: string | Function, method: Function) {
     const isNameAsFunction = isFunction(actionName);
 
-    if (isNameAsFunction && !actionName.name)
+    if (isNameAsFunction && !(actionName as Function).name)
       throw Error('Action must have name!');
 
     if (!isNameAsFunction && !isFunction(method))
@@ -153,16 +164,18 @@ class MobxModel {
 
     Object.defineProperty(
       this.prototype,
-      isNameAsFunction ? actionName.name : actionName,
+      isNameAsFunction ? (actionName as any).name : actionName,
       {
         get: function() {
-          return (isNameAsFunction ? actionName : method).bind(this);
+          return (isNameAsFunction ? (actionName as Function) : method).bind(
+            this,
+          );
         },
       },
     );
   }
 
-  constructor(options = {}) {
+  constructor(options: any = {}) {
     let { modelJson, topLevelJson, requestId } = options;
 
     initObservables(this.constructor);
@@ -178,41 +191,45 @@ class MobxModel {
   }
 
   initAttributes() {
-    const { extendObservable } = this.constructor.$mobx;
-    extendObservable(this, this.constructor.attributes);
+    const { extendObservable } = (this.constructor as typeof MobxModel)
+      .$mobx as any;
+    extendObservable(this, (this.constructor as typeof MobxModel).attributes);
   }
 
   initRelations() {
-    const model = this;
-    const { extendObservable } = this.constructor.$mobx;
+    const model: any = this;
+    const { extendObservable } = (this.constructor as typeof MobxModel)
+      .$mobx as any;
 
     // set defaults for relations
     setRelationsDefaults(model);
 
-    model.constructor.relations.forEach(relation => {
-      extendObservable(model, {
-        [relation.propertyName]: relation.initialValue,
-      });
-
-      // add alias method to set relation to model's instance
-      model[relation.setMethodName] = function(options = {}) {
-        Object.assign(options, { relation, model });
-        return setRelatedModel(options);
-      }.bind(model);
-
-      // add alias method to remove relation to model's instance
-      model[relation.removeMethodName] = function(relatedModel) {
-        return removeRelatedModel({
-          model,
-          relation,
-          relatedModel,
+    (model.constructor as typeof MobxModel).relations.forEach(
+      (relation: any) => {
+        extendObservable(model, {
+          [relation.propertyName]: relation.initialValue,
         });
-      }.bind(model);
-    });
+
+        // add alias method to set relation to model's instance
+        model[relation.setMethodName] = function(options = {}) {
+          Object.assign(options, { relation, model });
+          return setRelatedModel(options);
+        }.bind(model);
+
+        // add alias method to remove relation to model's instance
+        model[relation.removeMethodName] = function(relatedModel: any) {
+          return removeRelatedModel({
+            model,
+            relation,
+            relatedModel,
+          });
+        }.bind(model);
+      },
+    );
   }
 
-  set(options = {}) {
-    const { runInAction } = this.constructor.$mobx;
+  set(options: any = {}) {
+    const { runInAction } = (this.constructor as typeof MobxModel).$mobx as any;
 
     let { requestId, modelJson, topLevelJson } = options;
     let model = this;
@@ -238,22 +255,24 @@ class MobxModel {
   }
 
   get urlRoot() {
-    return this.constructor.urlRoot;
+    return (this.constructor as typeof MobxModel).urlRoot;
   }
 
   get jsonKey() {
-    return this.constructor.jsonKey;
+    return (this.constructor as typeof MobxModel).jsonKey;
   }
 
   onInitialize() {}
 
   onDestroy() {
     this.destroy();
-    console.warn('[mobx-model] onDestroy() method is deprecated. Please use destroy() method instead.');
+    console.warn(
+      '[mobx-model] onDestroy() method is deprecated. Please use destroy() method instead.',
+    );
   }
 
   destroy() {
-    const { runInAction } = this.constructor.$mobx;
+    const { runInAction } = (this.constructor as typeof MobxModel).$mobx as any;
 
     runInAction(() => {
       this.removeSelfFromCollection();
@@ -263,47 +282,59 @@ class MobxModel {
   }
 
   removeSelfFromCollection() {
-    this.constructor.remove(this);
+    (this.constructor as typeof MobxModel).remove(this);
   }
 
   destroyDependentRelations() {
-    let relationsToDestroy = filter(this.constructor.relations, relation => {
-      let reverseRelation = relation.reverseRelation;
-      return reverseRelation && reverseRelation.onDestroy === 'destroyRelation';
-    });
+    let relationsToDestroy = filter(
+      (this.constructor as typeof MobxModel).relations,
+      (relation: any) => {
+        let reverseRelation = relation.reverseRelation;
+        return (
+          reverseRelation && reverseRelation.onDestroy === 'destroyRelation'
+        );
+      },
+    );
 
     relationsToDestroy.forEach(relation => {
       if (relation.isHasMany) {
-        this[relation.propertyName].slice().forEach(relatedModel => {
-          relatedModel.onDestroy();
-        });
+        (this as any)[relation.propertyName]
+          .slice()
+          .forEach((relatedModel: any) => {
+            relatedModel.onDestroy();
+          });
       } else if (relation.isHasOne) {
-        this[relation.propertyName].onDestroy();
+        (this as any)[relation.propertyName].onDestroy();
       }
     });
   }
 
   removeSelfFromRelations() {
-    let relationsToRemoveFrom = filter(this.constructor.relations, relation => {
-      let reverseRelation = relation.reverseRelation;
-      return reverseRelation && reverseRelation.onDestroy === 'removeSelf';
-    });
+    let relationsToRemoveFrom = filter(
+      (this.constructor as typeof MobxModel).relations,
+      (relation: any) => {
+        let reverseRelation = relation.reverseRelation;
+        return reverseRelation && reverseRelation.onDestroy === 'removeSelf';
+      },
+    );
 
     relationsToRemoveFrom.forEach(relation => {
       let removeMethodName = relation.reverseRelation.removeMethodName;
 
       if (relation.isHasMany) {
-        this[relation.propertyName].slice().forEach(relatedModel => {
-          if (relatedModel[removeMethodName]) {
-            relatedModel[removeMethodName](this);
-          }
-        });
+        (this as any)[relation.propertyName]
+          .slice()
+          .forEach((relatedModel: any) => {
+            if (relatedModel[removeMethodName]) {
+              relatedModel[removeMethodName](this);
+            }
+          });
       } else if (relation.isHasOne) {
         if (
-          this[relation.propertyName] &&
-          this[relation.propertyName][removeMethodName]
+          (this as any)[relation.propertyName] &&
+          (this as any)[relation.propertyName][removeMethodName]
         ) {
-          this[relation.propertyName][removeMethodName](this);
+          (this as any)[relation.propertyName][removeMethodName](this);
         }
       }
     });
@@ -311,12 +342,12 @@ class MobxModel {
 
   toJSON() {
     const { id, constructor } = this;
-    const { attributes, relations } = constructor;
+    const { attributes, relations } = constructor as typeof MobxModel;
 
     // collect attributes
     const attributeValues = Object.keys(attributes || {}).reduce(
-      (values, attributeName) => {
-        values[attributeName] = this[attributeName];
+      (values: any, attributeName) => {
+        values[attributeName] = (this as any)[attributeName];
         return values;
       },
       {},
@@ -324,17 +355,19 @@ class MobxModel {
 
     // collect relation models id
     const relationValues = (relations || []).reduce(
-      (values, { type, propertyName, foreignKey }) => {
+      (values: any, { type, propertyName, foreignKey }) => {
         const camelizedForeignKey = camelize(foreignKey, true);
 
         if (type === 'hasMany') {
           values[camelizedForeignKey] = (this[propertyName] || [])
             .slice()
-            .map(model => model.id);
+            .map((model: MobxModel) => model.id);
         }
 
         if (type === 'hasOne') {
-          values[camelizedForeignKey] = (this[propertyName] || {}).id;
+          values[camelizedForeignKey] = (
+            (this as MobxModel)[propertyName] || { id: void 0 }
+          ).id;
         }
 
         return values;

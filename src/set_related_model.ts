@@ -1,7 +1,7 @@
 import find from 'lodash/find';
 import includes from 'lodash/includes';
 
-export default function setRelatedModel(options = {}) {
+export default function setRelatedModel(options: any = {}) {
   let {
     id,
     modelJson,
@@ -30,7 +30,9 @@ export default function setRelatedModel(options = {}) {
 
   // try to find it in array by id if hasMany relation
   if (relation.isHasMany) {
-    existingRelatedModel = model[relation.propertyName].find(m => m.id === id);
+    existingRelatedModel = model[relation.propertyName].find(
+      (m: any) => m.id === id,
+    );
     // or just check if property is assigned
   } else if (relation.isHasOne) {
     existingRelatedModel = model[relation.propertyName];
