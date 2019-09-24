@@ -1,6 +1,5 @@
 /// <reference path="../index.d.ts" />
 
-import { tableize, underscore, camelize } from 'inflection';
 import filter from 'lodash/filter';
 import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
@@ -12,6 +11,8 @@ import setRelations from './set_relations';
 import setRelationsDefaults from './set_relations_defaults';
 import setRelatedModel from './set_related_model';
 import removeRelatedModel from './remove_related_model';
+
+const { tableize, underscore, camelize } = require('inflection');
 
 /*
  * This is a hack to allow each model that extends
