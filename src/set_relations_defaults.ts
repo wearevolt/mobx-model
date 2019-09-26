@@ -1,12 +1,12 @@
 import { upperCaseFirstLetter, lowercaseFirstLetter } from './utils';
 
-const {
+import {
   pluralize,
   underscore,
   tableize,
   foreign_key,
   singularize,
-} = require('inflection');
+} from 'inflection';
 
 import isBoolean from 'lodash/isBoolean';
 import isString from 'lodash/isString';

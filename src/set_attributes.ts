@@ -1,13 +1,10 @@
-/// <reference path="../index.d.ts" />
-
 import keys from 'lodash/keys';
+import { underscore } from 'inflection';
 
 interface ISetAttributesOptions {
   model: any;
   modelJson: any;
 }
-
-const { underscore } = require('inflection');
 
 export default function setAttributes(options: ISetAttributesOptions): void {
   const { model, modelJson = {} } = options || {};

@@ -1,5 +1,13 @@
-export default function removeRelatedModel(options: any = {}) {
-  const { model, relation, relatedModel } = options;
+interface IRemoveRelatedModelOptions {
+  model?: any;
+  relation?: any;
+  relatedModel?: any;
+}
+
+export default function removeRelatedModel(options: IRemoveRelatedModelOptions) {
+  const { model, relation, relatedModel } = options || {};
+
+  if (!model || !relation || !relatedModel) return;
 
   if (relation.isHasMany) {
     const collection = model[relation.propertyName];
