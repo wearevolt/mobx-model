@@ -5,6 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
+import { tableize, underscore, camelize } from 'inflection';
 
 import setAttributes from './set_attributes';
 import setRelations from './set_relations';
@@ -12,7 +13,6 @@ import setRelationsDefaults from './set_relations_defaults';
 import setRelatedModel from './set_related_model';
 import removeRelatedModel from './remove_related_model';
 
-const { tableize, underscore, camelize } = require('inflection');
 
 /*
  * This is a hack to allow each model that extends
