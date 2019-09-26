@@ -88,17 +88,6 @@ describe('Use property modelName first insead constructor.name', () => {
     );
   });
 
-  describe('urlRoot should calculated by `modelName`', () => {
-    it('for model class', function() {
-      expect(AModel.urlRoot).to.equal('/alpha_models');
-      expect(model.constructor.urlRoot).to.equal('/alpha_models');
-    });
-
-    it('for model item', function() {
-      expect(model.urlRoot).to.equal('/alpha_models');
-    });
-  });
-
   describe('hasOne', () => {
     it('should set `hasOne`-type related model data', function() {
       expect(model.bettaModel.id).to.equal(2);

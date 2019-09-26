@@ -41,7 +41,7 @@
     "@babel/register": "7.5.5",
     "@types/inflection": "1.5.28",
     "@types/lodash": "4.14.139",
-    "@types/node": "^12.7.8",
+    "@types/node": "12.7.8",
     "chai": "4.2.0",
     "mobx": "5.13.0",
     "mocha": "6.2.0",

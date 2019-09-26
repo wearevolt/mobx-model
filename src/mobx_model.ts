@@ -5,14 +5,13 @@ import uniqueId from 'lodash/uniqueId';
 import result from 'lodash/result';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
-import { tableize, underscore, camelize } from 'inflection';
+import { underscore, camelize } from 'inflection';
 
 import setAttributes from './set_attributes';
 import setRelations from './set_relations';
 import setRelationsDefaults from './set_relations_defaults';
 import setRelatedModel from './set_related_model';
 import removeRelatedModel from './remove_related_model';
-
 
 /*
  * This is a hack to allow each model that extends
@@ -29,8 +28,8 @@ const initObservables = function(target: any) {
 class MobxModel {
   static $mobx = null;
 
-  static urlRoot: string;
-  static jsonKey: string;
+  static modelName?: string;
+  static _jsonKey: string;
 
   static attributes = {};
   static relations = [];
@@ -38,7 +37,17 @@ class MobxModel {
   static getModel: (modelName: string) => MobxModel;
 
   id = null;
-  lastSetRequestId = null;
+  private lastSetRequestId = null;
+
+  static get jsonKey(): string {
+    return this._jsonKey
+      ? this._jsonKey
+      : underscore(this.modelName || this.name);
+  }
+
+  static set jsonKey(value: string) {
+    this._jsonKey = value;
+  }
 
   static config(options: any = {}) {
     const { mobx, models = {}, plugins = [] } = options;
@@ -85,7 +94,8 @@ class MobxModel {
   static set = function(options: any = {}) {
     const { runInAction } = this.$mobx;
 
-    let { modelJson, topLevelJson, requestId } = options;
+    const { modelJson } = options;
+    let { topLevelJson, requestId } = options;
 
     /*
       requestId is used to allow models to 
@@ -177,7 +187,7 @@ class MobxModel {
   }
 
   constructor(options: any = {}) {
-    let { modelJson, topLevelJson, requestId } = options;
+    const { modelJson } = options;
 
     initObservables(this.constructor);
 
@@ -191,13 +201,13 @@ class MobxModel {
     this.onInitialize();
   }
 
-  initAttributes() {
+  private initAttributes() {
     const { extendObservable } = (this.constructor as typeof MobxModel)
       .$mobx as any;
     extendObservable(this, (this.constructor as typeof MobxModel).attributes);
   }
 
-  initRelations() {
+  private initRelations() {
     const model: any = this;
     const { extendObservable } = (this.constructor as typeof MobxModel)
       .$mobx as any;
@@ -232,8 +242,10 @@ class MobxModel {
   set(options: any = {}) {
     const { runInAction } = (this.constructor as typeof MobxModel).$mobx as any;
 
-    let { requestId, modelJson, topLevelJson } = options;
-    let model = this;
+    const { modelJson, topLevelJson } = options;
+    let { requestId } = options;
+
+    const model = this;
 
     if (!requestId) requestId = uniqueId('request_');
 
@@ -255,10 +267,6 @@ class MobxModel {
     });
   }
 
-  get urlRoot() {
-    return (this.constructor as typeof MobxModel).urlRoot;
-  }
-
   get jsonKey() {
     return (this.constructor as typeof MobxModel).jsonKey;
   }
@@ -268,7 +276,7 @@ class MobxModel {
   onDestroy() {
     this.destroy();
     console.warn(
-      '[mobx-model] onDestroy() method is deprecated. Please use destroy() method instead.',
+      '[mobx-model] onDestroy() method is deprecated on v1.x.x. Please use destroy() method instead.',
     );
   }
 
@@ -282,12 +290,12 @@ class MobxModel {
     });
   }
 
-  removeSelfFromCollection() {
+  private removeSelfFromCollection() {
     (this.constructor as typeof MobxModel).remove(this);
   }
 
-  destroyDependentRelations() {
-    let relationsToDestroy = filter(
+  private destroyDependentRelations() {
+    const relationsToDestroy = filter(
       (this.constructor as typeof MobxModel).relations,
       (relation: any) => {
         let reverseRelation = relation.reverseRelation;
@@ -310,17 +318,17 @@ class MobxModel {
     });
   }
 
-  removeSelfFromRelations() {
-    let relationsToRemoveFrom = filter(
+  private removeSelfFromRelations() {
+    const relationsToRemoveFrom = filter(
       (this.constructor as typeof MobxModel).relations,
       (relation: any) => {
-        let reverseRelation = relation.reverseRelation;
+        const reverseRelation = relation.reverseRelation;
         return reverseRelation && reverseRelation.onDestroy === 'removeSelf';
       },
     );
 
     relationsToRemoveFrom.forEach(relation => {
-      let removeMethodName = relation.reverseRelation.removeMethodName;
+      const removeMethodName = relation.reverseRelation.removeMethodName;
 
       if (relation.isHasMany) {
         (this as any)[relation.propertyName]
@@ -383,27 +391,5 @@ class MobxModel {
     };
   }
 }
-
-Object.defineProperty(MobxModel, 'urlRoot', {
-  get: function() {
-    return this._urlRoot
-      ? this._urlRoot
-      : '/' + tableize(this.modelName || this.name);
-  },
-  set: function(value) {
-    this._urlRoot = value;
-  },
-});
-
-Object.defineProperty(MobxModel, 'jsonKey', {
-  get: function() {
-    return this._jsonKey
-      ? this._jsonKey
-      : underscore(this.modelName || this.name);
-  },
-  set: function(value) {
-    this._jsonKey = value;
-  },
-});
 
 export default MobxModel;

@@ -1,7 +1,16 @@
 import setRelation from './set_relation';
 
-export default function setRelations(options: any = {}) {
-  const { model, modelJson, requestId, topLevelJson } = options;
+interface ISetRelationsOptions {
+  model: any;
+  modelJson: any;
+  topLevelJson: any;
+  requestId: any;
+}
+
+export default function setRelations(options: ISetRelationsOptions): void {
+  const { model, modelJson={}, requestId, topLevelJson = {} } = options || {};
+
+  if (!model) return;
 
   model.constructor.relations.forEach((relation: any) => {
     const embeddedJson = modelJson[relation.jsonKey];
