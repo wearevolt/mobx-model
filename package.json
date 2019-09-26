@@ -1,6 +1,6 @@
 {
   "name": "mobx-model",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Simple model with attributes and relations updated from json",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test-watch": "mocha --reporter spec --compilers js:babel-core/register test/index.js --recursive --watch",
     "prepublish": "npm run clean && npm run build && npm run test",
     "clean": "rm -rf lib/",
-    "build": "babel src --out-dir lib --source-maps",
+    "build": "tsc",
     "docs:prepare": "gitbook install",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:build": "npm run docs:prepare && rm -rf _book && gitbook build -g wearevolt/mobx-model",
@@ -39,8 +39,13 @@
     "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/preset-env": "7.5.5",
     "@babel/register": "7.5.5",
+    "@types/inflection": "1.5.28",
+    "@types/lodash": "4.14.139",
+    "@types/node": "12.7.8",
     "chai": "4.2.0",
     "mobx": "5.13.0",
-    "mocha": "6.2.0"
+    "mocha": "6.2.0",
+    "tslint": "5.20.0",
+    "typescript": "3.6.3"
   }
 }

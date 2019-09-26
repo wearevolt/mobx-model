@@ -41,8 +41,13 @@ declare class MobxModel {
 }
 
 declare namespace MobxModel {
+  export enum RelationType {
+    hasOne = 'hasOne',
+    hasMany = 'hasMany',
+  }
+
   export interface MobxModelRelation {
-    type: string;
+    type: RelationType;
     relatedModel: string;
     reverseRelation?: boolean;
     propertyName?: string;

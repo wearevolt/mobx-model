@@ -1,7 +1,17 @@
 import find from 'lodash/find';
 import includes from 'lodash/includes';
 
-export default function setRelatedModel(options = {}) {
+interface ISetRelatedModelOptions {
+  id?: number | string;
+  modelJson?: any;
+  relatedModel?: any;
+  model?: any;
+  relation?: any;
+  requestId?: any;
+  topLevelJson?: any;
+}
+
+export default function setRelatedModel(options: ISetRelatedModelOptions) {
   let {
     id,
     modelJson,
@@ -10,10 +20,9 @@ export default function setRelatedModel(options = {}) {
     relation,
     requestId,
     topLevelJson,
-  } = options;
+  } = options || {};
 
   let existingRelatedModel;
-  // id, json, relatedModel,
 
   if (!id && !modelJson && !relatedModel) return;
 
@@ -30,12 +39,14 @@ export default function setRelatedModel(options = {}) {
 
   // try to find it in array by id if hasMany relation
   if (relation.isHasMany) {
-    existingRelatedModel = model[relation.propertyName].find(m => m.id === id);
+    existingRelatedModel = model[relation.propertyName].find(
+      (m: any) => m.id === id,
+    );
     // or just check if property is assigned
   } else if (relation.isHasOne) {
     existingRelatedModel = model[relation.propertyName];
     if (existingRelatedModel && existingRelatedModel.id !== id)
-      existingRelatedModel = undefined;
+      existingRelatedModel = void 0;
   }
 
   // if no existing related model was not found
