@@ -1,8 +1,18 @@
 import isArray from 'lodash/isArray';
 import includes from 'lodash/includes';
 
-export default function setRelation(options: any = {}) {
-  const { ids, modelJson, relation, model, requestId, topLevelJson } = options;
+interface ISetRelationOptions {
+  ids?: (string | number)[];
+  modelJson?: any;
+  relation: any;
+  model: any;
+  requestId: any;
+  topLevelJson: any;
+}
+
+export default function setRelation(options: ISetRelationOptions) {
+  const { ids, modelJson, relation, model, requestId, topLevelJson } =
+    options || {};
 
   // if no ids and json was passed, do nothing
   if (!modelJson && ids === undefined) return;

@@ -8,9 +8,9 @@ interface ISetRelationsOptions {
 }
 
 export default function setRelations(options: ISetRelationsOptions): void {
-  const { model, modelJson={}, requestId, topLevelJson = {} } = options || {};
+  const { model, modelJson, requestId, topLevelJson } = options || {};
 
-  if (!model) return;
+  if (!model || !modelJson) return;
 
   model.constructor.relations.forEach((relation: any) => {
     const embeddedJson = modelJson[relation.jsonKey];
