@@ -1,5 +1,4 @@
-import isArray from 'lodash/isArray';
-import includes from 'lodash/includes';
+import { isArray, includes } from 'lodash';
 
 interface ISetRelationOptions {
   ids?: (string | number)[];

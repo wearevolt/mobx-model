@@ -1,10 +1,4 @@
-/// <reference path="../index.d.ts" />
-
-import filter from 'lodash/filter';
-import uniqueId from 'lodash/uniqueId';
-import result from 'lodash/result';
-import isString from 'lodash/isString';
-import isFunction from 'lodash/isFunction';
+import { filter, uniqueId, result, isString, isFunction } from 'lodash';
 import { underscore, camelize } from 'inflection';
 
 import setAttributes from './set_attributes';
@@ -13,9 +7,43 @@ import setRelationsDefaults from './set_relations_defaults';
 import setRelatedModel from './set_related_model';
 import removeRelatedModel from './remove_related_model';
 
-export enum RelationType {
+export enum MobxModelRelationType {
   hasOne = 'hasOne',
   hasMany = 'hasMany',
+}
+
+export interface MobxModelRelation {
+  type: MobxModelRelationType;
+  relatedModel: string;
+  reverseRelation?: boolean;
+  propertyName?: string;
+  topLevelJsonKey?: string;
+  foreignKey?: string;
+}
+
+export interface MobxModelRelationItem {
+  foreignKey: string;
+  jsonKey: string;
+  topLevelJsonKey: string;
+  type: string;
+  relatedModel: typeof MobxModel;
+  propertyName: string;
+}
+
+export interface MobxModelConfigOptions {
+  mobx: any;
+  models: object;
+  plugins?: { (target: typeof MobxModel, options?: object): void }[];
+}
+
+export interface MobxModelSetOptions {
+  modelJson: any;
+  topLevelJson?: any;
+  requestId?: number | string;
+}
+
+export interface MobxModelObservables {
+  collection: MobxModel[];
 }
 
 /*
@@ -33,16 +61,18 @@ const initObservables = function(target: any) {
 class MobxModel {
   static $mobx = null;
 
-  static modelName?: string;
-  static _jsonKey: string;
+  private static observables: MobxModelObservables;
 
-  static attributes = {};
-  static relations = [];
+  static modelName?: string;
+  static attributes: object = {};
+  static relations: MobxModelRelation[] = [];
 
   static getModel: (modelName: string) => MobxModel;
 
-  id = null;
-  private lastSetRequestId = null;
+  id?: number | string;
+  private lastSetRequestId?: number | string;
+
+  private static _jsonKey: string;
 
   static get jsonKey(): string {
     return this._jsonKey
@@ -54,7 +84,7 @@ class MobxModel {
     this._jsonKey = value;
   }
 
-  static config(options: any = {}) {
+  static config(options: MobxModelConfigOptions): void {
     const { mobx, models = {}, plugins = [] } = options;
 
     if (!mobx)
@@ -83,21 +113,21 @@ class MobxModel {
     });
   }
 
-  static get = function(id: string | number) {
+  static get<T>(id: number | string): T | null {
     const items: any[] = result(this, 'observables.collection');
 
     if (items) {
       let l = items.length;
       for (let i = 0; i < l; i++) {
-        if (items[i].id.toString() === id.toString()) return items[i];
+        if (items[i].id && items[i].id.toString() === id.toString()) return items[i];
       }
     }
 
     return null;
   };
 
-  static set = function(options: any = {}) {
-    const { runInAction } = this.$mobx;
+  static set<T>(options: MobxModelSetOptions): T {
+    const { runInAction } = this.$mobx as any;
 
     const { modelJson } = options;
     let { topLevelJson, requestId } = options;
@@ -112,9 +142,11 @@ class MobxModel {
     /*
      * topLevelJson is used to get json for models referenced by ids
      */
-    if (!topLevelJson) topLevelJson = modelJson;
+    if (!topLevelJson) {
+      topLevelJson = modelJson;
+    }
 
-    let model = this.get(modelJson.id);
+    let model: any = this.get(modelJson.id);
 
     runInAction(() => {
       if (!model) {
@@ -133,7 +165,7 @@ class MobxModel {
     return model;
   };
 
-  static remove = function(model: any) {
+  static remove(model: MobxModel): void {
     if (this.observables && this.observables.collection) {
       this.observables.collection.splice(
         this.observables.collection.indexOf(model),
@@ -142,12 +174,12 @@ class MobxModel {
     }
   };
 
-  static all = function() {
+  static all(): MobxModel[] {
     initObservables(this);
     return this.observables.collection.slice();
   };
 
-  static addClassAction(actionName: string | Function, method: Function) {
+  static addClassAction(actionName: string | Function, method?: Function): void {
     const isNameAsFunction = isFunction(actionName);
 
     if (isNameAsFunction && !(actionName as Function).name)
@@ -161,15 +193,14 @@ class MobxModel {
       isNameAsFunction ? (actionName as any).name : actionName,
       {
         get: function() {
-          return (isNameAsFunction ? (actionName as Function) : method).bind(
-            this,
-          );
+          const func = isNameAsFunction ? (actionName as Function) : method;
+          return (func!).bind(this);
         },
       },
     );
   }
 
-  static addAction(actionName: string | Function, method: Function) {
+  static addAction(actionName: string | Function, method?: Function): void {
     const isNameAsFunction = isFunction(actionName);
 
     if (isNameAsFunction && !(actionName as Function).name)
@@ -183,7 +214,8 @@ class MobxModel {
       isNameAsFunction ? (actionName as any).name : actionName,
       {
         get: function() {
-          return (isNameAsFunction ? (actionName as Function) : method).bind(
+          const func = isNameAsFunction ? (actionName as Function) : method;
+          return (func!).bind(
             this,
           );
         },
@@ -191,7 +223,7 @@ class MobxModel {
     );
   }
 
-  constructor(options: any = {}) {
+  constructor(options: MobxModelSetOptions) {
     const { modelJson } = options;
 
     initObservables(this.constructor);
@@ -202,8 +234,6 @@ class MobxModel {
 
     this.initAttributes();
     this.initRelations();
-
-    this.onInitialize();
   }
 
   private initAttributes() {
@@ -244,7 +274,7 @@ class MobxModel {
     );
   }
 
-  set(options: any = {}) {
+  set(options: MobxModelSetOptions): void {
     const { runInAction } = (this.constructor as typeof MobxModel).$mobx as any;
 
     const { modelJson, topLevelJson } = options;
@@ -272,20 +302,18 @@ class MobxModel {
     });
   }
 
-  get jsonKey() {
+  get jsonKey(): string {
     return (this.constructor as typeof MobxModel).jsonKey;
   }
 
-  onInitialize() {}
-
-  onDestroy() {
+  onDestroy(): void {
     this.destroy();
     console.warn(
       '[mobx-model] onDestroy() method is deprecated on v1.x.x. Please use destroy() method instead.',
     );
   }
 
-  destroy() {
+  destroy(): void {
     const { runInAction } = (this.constructor as typeof MobxModel).$mobx as any;
 
     runInAction(() => {
@@ -295,11 +323,11 @@ class MobxModel {
     });
   }
 
-  private removeSelfFromCollection() {
+  private removeSelfFromCollection(): void {
     (this.constructor as typeof MobxModel).remove(this);
   }
 
-  private destroyDependentRelations() {
+  private destroyDependentRelations(): void {
     const relationsToDestroy = filter(
       (this.constructor as typeof MobxModel).relations,
       (relation: any) => {
@@ -310,7 +338,9 @@ class MobxModel {
       },
     );
 
-    relationsToDestroy.forEach(relation => {
+    relationsToDestroy.forEach((relation: any) => {
+      if (!relation.propertyName) return;
+
       if (relation.isHasMany) {
         (this as any)[relation.propertyName]
           .slice()
@@ -323,7 +353,7 @@ class MobxModel {
     });
   }
 
-  private removeSelfFromRelations() {
+  private removeSelfFromRelations(): void {
     const relationsToRemoveFrom = filter(
       (this.constructor as typeof MobxModel).relations,
       (relation: any) => {
@@ -332,7 +362,7 @@ class MobxModel {
       },
     );
 
-    relationsToRemoveFrom.forEach(relation => {
+    relationsToRemoveFrom.forEach((relation: any) => {
       const removeMethodName = relation.reverseRelation.removeMethodName;
 
       if (relation.isHasMany) {
@@ -354,7 +384,7 @@ class MobxModel {
     });
   }
 
-  toJSON() {
+  toJSON(): any {
     const { id, constructor } = this;
     const { attributes, relations } = constructor as typeof MobxModel;
 
@@ -370,17 +400,17 @@ class MobxModel {
     // collect relation models id
     const relationValues = (relations || []).reduce(
       (values: any, { type, propertyName, foreignKey }) => {
-        const camelizedForeignKey = camelize(foreignKey, true);
+        const camelizedForeignKey = camelize(foreignKey!, true);
 
-        if (type === RelationType.hasMany) {
-          values[camelizedForeignKey] = (this[propertyName] || [])
+        if (type === MobxModelRelationType.hasMany) {
+          values[camelizedForeignKey] = (this[propertyName!] || [])
             .slice()
             .map((model: MobxModel) => model.id);
         }
 
-        if (type === RelationType.hasOne) {
+        if (type === MobxModelRelationType.hasOne) {
           values[camelizedForeignKey] = (
-            (this as MobxModel)[propertyName] || { id: void 0 }
+            (this as MobxModel)[propertyName!] || { id: void 0 }
           ).id;
         }
 

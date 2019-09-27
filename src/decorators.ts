@@ -1,6 +1,4 @@
-/// <reference path="../index.d.ts" />
-
-import MobxModel from "../index";
+import { MobxModelRelation } from "./mobx_model";
 
 export function attribute(target: any, key: string): void {
   const hasAttributesProperty = target.constructor.hasOwnProperty('attributes');
@@ -12,7 +10,7 @@ export function attribute(target: any, key: string): void {
   target.constructor.attributes[key] = void 0;
 }
 
-export function relation(relationOptions: MobxModel.MobxModelRelation) {
+export function relation(relationOptions: MobxModelRelation) {
   return function(target: any, key: string): void {
     const hasRelationsProperty = target.constructor.hasOwnProperty('relations');
 

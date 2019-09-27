@@ -1,4 +1,4 @@
-import keys from 'lodash/keys';
+import { keys } from 'lodash';
 import { underscore } from 'inflection';
 
 interface ISetAttributesOptions {

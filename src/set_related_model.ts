@@ -1,5 +1,4 @@
-import find from 'lodash/find';
-import includes from 'lodash/includes';
+import { find, includes } from 'lodash';
 
 interface ISetRelatedModelOptions {
   id?: number | string;

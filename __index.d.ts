@@ -1,41 +1,41 @@
 // Type definitions for MobxModel 1.0.0
 
 declare class MobxModel {
-  static modelName?: string;
+  //static modelName?: string;
 
-  static attributes: object;
-  static relations: MobxModel.MobxModelRelation[];
+  //static attributes: object;
+  //static relations: MobxModel.MobxModelRelation[];
 
-  static config(options: MobxModel.MobxModelConfigOptions): void;
+  //static config(options: MobxModel.MobxModelConfigOptions): void;
 
-  static get<T>(id: number | string): T | null;
+  //static get<T>(id: number | string): T | null;
 
-  static set<T>(options: MobxModel.MobxModelSetOptions): T;
+  //static set<T>(options: MobxModel.MobxModelSetOptions): T;
 
-  static remove(model: object): void;
+  //static remove(model: object): void;
 
-  static all(): object[];
+  //static all(): object[];
 
-  static addClassAction(actionName: string | Function, method?: Function): void;
+  //static addClassAction(actionName: string | Function, method?: Function): void;
 
-  static addAction(actionName: string | Function, method?: Function): void;
+  //static addAction(actionName: string | Function, method?: Function): void;
 
-  id: number | string;
+  //id: number | string;
 
-  constructor(options: MobxModel.MobxModelSetOptions);
+  //constructor(options: MobxModel.MobxModelSetOptions);
 
-  set(options: MobxModel.MobxModelSetOptions): void;
+  //set(options: MobxModel.MobxModelSetOptions): void;
 
-  static urlRoot: string;
-  urlRoot: string;
+  //static urlRoot: string;
+  //urlRoot: string;
 
-  static jsonKey: string;
-  jsonKey: string;
+  //static jsonKey: string;
+  //jsonKey: string;
 
   onInitialize(): void;
 
-  destroy(): void;
-  onDestroy(): void; // deprecated
+  //destroy(): void;
+  //onDestroy(): void; // deprecated
 
   toJSON(): object;
 }
@@ -71,8 +71,8 @@ declare namespace MobxModel {
   }
 
   export interface MobxModelSetOptions {
-    modelJson: object;
-    topLevelJson?: object;
+    modelJson: any;
+    topLevelJson?: any;
     requestId?: number | string;
   }
 }

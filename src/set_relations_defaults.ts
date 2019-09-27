@@ -8,8 +8,7 @@ import {
   singularize,
 } from 'inflection';
 
-import isBoolean from 'lodash/isBoolean';
-import isString from 'lodash/isString';
+import { isBoolean, isString } from 'lodash';
 
 // mutate static relations and add defaults
 // to each relation
