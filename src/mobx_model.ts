@@ -7,13 +7,13 @@ import setRelationsDefaults from './set_relations_defaults';
 import setRelatedModel from './set_related_model';
 import removeRelatedModel from './remove_related_model';
 
-export enum MobxModelRelationType {
+export enum RelationType {
   hasOne = 'hasOne',
   hasMany = 'hasMany',
 }
 
 export interface MobxModelRelation {
-  type: MobxModelRelationType;
+  type: RelationType;
   relatedModel: string;
   reverseRelation?: boolean;
   propertyName?: string;
@@ -69,7 +69,8 @@ class MobxModel {
 
   static getModel: (modelName: string) => MobxModel;
 
-  id?: number | string;
+  id: number | string = '';
+
   private lastSetRequestId?: number | string;
 
   private static _jsonKey: string;
@@ -102,7 +103,7 @@ class MobxModel {
       const [plugin, options] = [].concat(pluginItem);
 
       const pluginFunc = isString(plugin)
-        ? require(plugin)
+        ? require(`${plugin}`)
         : isFunction(plugin)
         ? plugin
         : null;
@@ -402,13 +403,13 @@ class MobxModel {
       (values: any, { type, propertyName, foreignKey }) => {
         const camelizedForeignKey = camelize(foreignKey!, true);
 
-        if (type === MobxModelRelationType.hasMany) {
+        if (type === RelationType.hasMany) {
           values[camelizedForeignKey] = (this[propertyName!] || [])
             .slice()
             .map((model: MobxModel) => model.id);
         }
 
-        if (type === MobxModelRelationType.hasOne) {
+        if (type === RelationType.hasOne) {
           values[camelizedForeignKey] = (
             (this as MobxModel)[propertyName!] || { id: void 0 }
           ).id;

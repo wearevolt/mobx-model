@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "rootDir": "src",
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "downlevelIteration": true,
     "alwaysStrict": true,
     "outDir": "lib",
+    "declarationDir": ".",
     "sourceMap": false,
     "declaration": true,
     "removeComments": false,
@@ -19,5 +20,6 @@
     "experimentalDecorators": true,
     "lib": ["es5"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["lib/**/*"]
 }
