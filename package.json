@@ -34,7 +34,7 @@
     "inflection": "^1.10.0",
     "lodash": "^4.13.1",
     "qs": "^6.2.1",
-    "superagent": "^2.1.0"
+    "superagent": "^5.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
