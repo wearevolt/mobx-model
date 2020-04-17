@@ -1,6 +1,6 @@
 {
   "name": "mobx-model",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Simple model with attributes and relations updated from json",
   "main": "lib/index.js",
   "scripts": {
