@@ -12,8 +12,9 @@ export default function setAttributes(options: ISetAttributesOptions): void {
   if (!model) return;
 
   keys(model.constructor.attributes).forEach(attributeName => {
-    model[attributeName] = modelJson[attributeName]
-      ? modelJson[attributeName]
-      : modelJson[underscore(attributeName)];
+    model[attributeName] =
+      modelJson[attributeName] !== void 0
+        ? modelJson[attributeName]
+        : modelJson[underscore(attributeName)];
   });
 }
