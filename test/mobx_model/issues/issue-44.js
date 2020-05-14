@@ -50,13 +50,18 @@ describe('Issue #44: MobxModel get() method: set nill id arg cause unexpected', 
     expect(!!zeroStrIdModel).to.equal(true);
   });
 
+  it('Get model by boolean false ID', function() {
+    const booleanIdModel = Issue44Model.get(false);
+    expect(!!booleanIdModel).to.equal(false);
+  });
+
   it('Get model by undefined ID', function() {
-    const zeroUndefinedIdModel = Issue44Model.get();
-    expect(!!zeroUndefinedIdModel).to.equal(false);
+    const undefinedIdModel = Issue44Model.get();
+    expect(!!undefinedIdModel).to.equal(false);
   });
 
   it('Get model by null ID', function() {
-    const zeroNullIdModel = Issue44Model.get();
-    expect(!!zeroNullIdModel).to.equal(false);
+    const nullIdModel = Issue44Model.get();
+    expect(!!nullIdModel).to.equal(false);
   });
 });

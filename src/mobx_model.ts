@@ -115,17 +115,22 @@ class MobxModel {
   }
 
   static get<T>(id: number | string): T | null {
+    if (id === void 0 || id === null) {
+      return null;
+    }
+
     const items: any[] = result(this, 'observables.collection');
 
     if (items) {
       let l = items.length;
       for (let i = 0; i < l; i++) {
-        if (items[i].id && items[i].id.toString() === id.toString()) return items[i];
+        if (items[i].id && items[i].id.toString() === id.toString())
+          return items[i];
       }
     }
 
     return null;
-  };
+  }
 
   static set<T>(options: MobxModelSetOptions): T {
     const { runInAction } = this.$mobx as any;
@@ -164,7 +169,7 @@ class MobxModel {
     });
 
     return model;
-  };
+  }
 
   static remove(model: MobxModel): void {
     if (this.observables && this.observables.collection) {
@@ -173,14 +178,17 @@ class MobxModel {
         1,
       );
     }
-  };
+  }
 
   static all(): MobxModel[] {
     initObservables(this);
     return this.observables.collection.slice();
-  };
+  }
 
-  static addClassAction(actionName: string | Function, method?: Function): void {
+  static addClassAction(
+    actionName: string | Function,
+    method?: Function,
+  ): void {
     const isNameAsFunction = isFunction(actionName);
 
     if (isNameAsFunction && !(actionName as Function).name)
@@ -195,7 +203,7 @@ class MobxModel {
       {
         get: function() {
           const func = isNameAsFunction ? (actionName as Function) : method;
-          return (func!).bind(this);
+          return func!.bind(this);
         },
       },
     );
@@ -216,9 +224,7 @@ class MobxModel {
       {
         get: function() {
           const func = isNameAsFunction ? (actionName as Function) : method;
-          return (func!).bind(
-            this,
-          );
+          return func!.bind(this);
         },
       },
     );
