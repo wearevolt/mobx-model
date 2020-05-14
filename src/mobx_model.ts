@@ -124,8 +124,9 @@ class MobxModel {
     if (items) {
       let l = items.length;
       for (let i = 0; i < l; i++) {
-        if (items[i].id && items[i].id.toString() === id.toString())
+        if (items[i].id && items[i].id.toString() === id.toString()) {
           return items[i];
+        }
       }
     }
 
