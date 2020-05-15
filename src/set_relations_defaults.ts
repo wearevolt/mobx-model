@@ -1,38 +1,40 @@
 import { upperCaseFirstLetter, lowercaseFirstLetter } from './utils';
+
 import {
-  pluralize, underscore, tableize, foreign_key,
-  singularize
+  pluralize,
+  underscore,
+  tableize,
+  foreign_key,
+  singularize,
 } from 'inflection';
-import isBoolean from 'lodash/isBoolean';
-import isString from 'lodash/isString';
+
+import { isBoolean, isString } from 'lodash';
 
 // mutate static relations and add defaults
 // to each relation
-export default function setRelationsDefaults(model) {
-
+export default function setRelationsDefaults(model: any) {
   if (!model.constructor.getModel) {
-    throw new Error("getModel static method must be defined for a \
-                     base model class, that returns model class given its name")
+    throw new Error(
+      'getModel static method must be defined for a \
+                     base model class, that returns model class given its name',
+    );
   }
 
-  model.constructor.relations.forEach(relation => {
-
+  model.constructor.relations.forEach((relation: any) => {
     if (relation._isPrepared) return;
 
-    // console.log('setRelationsDefaults', model, relation)   
-
     // shorthand method to quickly check if relation is of hasMany type
-    Object.defineProperty(relation, "isHasMany", {
+    Object.defineProperty(relation, 'isHasMany', {
       get: function() {
-        return this.type === 'hasMany'
-      }
+        return this.type === 'hasMany';
+      },
     });
 
     // shorthand method to quickly check if relation is of hasOne type
-    Object.defineProperty(relation, "isHasOne", {
+    Object.defineProperty(relation, 'isHasOne', {
       get: function() {
-        return this.type === 'hasOne'
-      }
+        return this.type === 'hasOne';
+      },
     });
 
     // set initialValue for relation property
@@ -48,10 +50,12 @@ export default function setRelationsDefaults(model) {
 
     // property name on model instance to relation(s)
     if (!relation.propertyName) {
-      relation.propertyName = lowercaseFirstLetter(relation.relatedModel.modelName || relation.relatedModel.name);
+      relation.propertyName = lowercaseFirstLetter(
+        relation.relatedModel.modelName || relation.relatedModel.name,
+      );
 
       if (relation.isHasMany) {
-        relation.propertyName = pluralize(relation.propertyName)
+        relation.propertyName = pluralize(relation.propertyName);
       }
     }
 
@@ -68,17 +72,20 @@ export default function setRelationsDefaults(model) {
     // foreign key with ids of relations
     if (!relation.foreignKey) {
       if (relation.isHasMany) {
-        relation.foreignKey = foreign_key(singularize(relation.propertyName)) + 's';
+        relation.foreignKey =
+          foreign_key(singularize(relation.propertyName)) + 's';
       } else if (relation.isHasOne) {
         relation.foreignKey = foreign_key(relation.propertyName);
       }
     }
 
     let name = upperCaseFirstLetter(relation.propertyName);
-    if (relation.isHasMany) name = singularize(name);
+    if (relation.isHasMany) {
+      name = singularize(name);
+    }
 
     // method name to add single relation, will be used as alias
-    if (!relation.setMethodName) {      
+    if (!relation.setMethodName) {
       relation.setMethodName = `set${name}`;
     }
 
@@ -89,36 +96,32 @@ export default function setRelationsDefaults(model) {
 
     let reverseRelation = relation.reverseRelation;
 
-    if (reverseRelation) {      
-
+    if (reverseRelation) {
       if (isBoolean(reverseRelation)) {
         reverseRelation = relation.reverseRelation = {};
       }
 
       if (!reverseRelation.onDestroy && reverseRelation.onDestroy !== false) {
-        reverseRelation.onDestroy = 'removeSelf'
+        reverseRelation.onDestroy = 'removeSelf';
       }
 
       if (!reverseRelation.propertyName) {
-        reverseRelation.propertyName = lowercaseFirstLetter(model.constructor.modelName || model.constructor.name);
+        reverseRelation.propertyName = lowercaseFirstLetter(
+          model.constructor.modelName || model.constructor.name,
+        );
       }
 
       let name = upperCaseFirstLetter(reverseRelation.propertyName);
 
-      if (!reverseRelation.setMethodName) {        
+      if (!reverseRelation.setMethodName) {
         reverseRelation.setMethodName = `set${name}`;
       }
 
-      if (!reverseRelation.removeMethodName) {        
+      if (!reverseRelation.removeMethodName) {
         reverseRelation.removeMethodName = `remove${name}`;
       }
-
-      //console.log('setRelationsDefaults reverseRelation is true', relation.reverseRelation, relation)
-
     }
 
     relation._isPrepared = true;
-
   });
-
 }

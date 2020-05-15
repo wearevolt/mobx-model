@@ -1,5 +1,15 @@
 ## Changelog
 
+### 1.0.0
+Next step of MobxModel
+
+1. Use `mobx` as external dependence.
+2. Configuration method for models registration and any setup options.
+3. Add plugins support.
+4. Remove API and REST-actions as part of library. Now they must be implemented as external plugins.
+5. Rename `BaseModel` class to `MobxModel`  
+6. Type definitions for TypeScript
+
 ### 0.0.39
 
 Updated mobx to 3.2.2

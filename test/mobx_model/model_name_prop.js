@@ -1,7 +1,10 @@
+import * as mobx from 'mobx';
 import { expect } from 'chai';
-import { BaseModel } from '../../lib/index';
+import MobxModel from '../../lib/index';
 
-class AlphaModel extends BaseModel {
+class AModel extends MobxModel {
+  static modelName = 'AlphaModel';
+
   static attributes = {
     value: null,
   };
@@ -20,7 +23,9 @@ class AlphaModel extends BaseModel {
   ];
 }
 
-class BettaModel extends BaseModel {
+class BModel extends MobxModel {
+  static modelName = 'BettaModel';
+
   static attributes = {
     name: null,
   };
@@ -34,7 +39,9 @@ class BettaModel extends BaseModel {
   ];
 }
 
-class OmegaModel extends BaseModel {
+class OModel extends MobxModel {
+  static modelName = 'OmegaModel';
+
   static attributes = {
     name: null,
   };
@@ -48,48 +55,37 @@ class OmegaModel extends BaseModel {
   ];
 }
 
-const models = { AlphaModel, BettaModel, OmegaModel };
+MobxModel.config({
+  mobx,
+  models: { AlphaModel: AModel, BettaModel: BModel, OmegaModel: OModel },
+});
 
-BaseModel.getModel = function(modelName) {
-  return models[modelName];
+const topLevelJson = {
+  model: {
+    id: 1,
+    omega_model_ids: [
+      11,
+      12,
+      13, // not existed
+    ],
+    value: 'foo',
+    betta_model: { id: 2, name: 'bar' },
+  },
+
+  omega_models: [
+    { id: 11, name: 'Omega bar 11' },
+    { id: 12, name: 'Omega bar 12' },
+  ],
 };
 
-function getAlphaModel() {
-  const topLevelJson = {
-    alpha_model: {
-      id: 1,
-      omega_model_ids: [11, 12],
-      value: 'foo',
-      betta_model: { id: 2, name: 'bar' },
-    },
+const modelJson = topLevelJson.model;
+const model = AModel.set({ modelJson, topLevelJson });
 
-    omega_models: [
-      { id: 11, name: 'Omega bar 11' },
-      { id: 12, name: 'Omega bar 12' },
-    ],
-  };
-  const modelJson = topLevelJson.alpha_model;
-  return AlphaModel.set({ modelJson, topLevelJson });
-}
-
-function getOmegaModel() {
-  const topLevelJson = {
-    omega_model: {
-      id: 13,
-      name: 'Omega bar 13',
-      alpha_model_id: 1,
-    },
-  };
-  const modelJson = topLevelJson.omega_model;
-  return OmegaModel.set({ modelJson, topLevelJson });
-}
-
-const model = getAlphaModel();
-const modelOmega = getOmegaModel();
-
-describe('Relations', () => {
-  it('should set model value', function() {
-    expect(model.value).to.equal('foo');
+describe('Use property modelName first insead constructor.name', () => {
+  it('should have different constructor.name and model name', function() {
+    expect(model.constructor.name !== model.constructor.modelName).to.equal(
+      true,
+    );
   });
 
   describe('hasOne', () => {
@@ -118,19 +114,6 @@ describe('Relations', () => {
       expect(model.omegaModels[0].alphaModel.value).to.equal('foo');
       expect(model.omegaModels[1].alphaModel.id).to.equal(1);
       expect(model.omegaModels[1].alphaModel.value).to.equal('foo');
-    });
-  });
-
-  describe('Reverse relation', () => {
-    it('should have parent AlphaModel related to OmegaModel', function() {
-      expect(!!modelOmega).to.equal(true);
-
-      expect(modelOmega.alphaModel.id).to.equal(1);
-      expect(modelOmega.alphaModel.value).to.equal('foo');
-      expect(modelOmega.alphaModel.omegaModels[2].id).to.equal(13);
-      expect(modelOmega.alphaModel.omegaModels[2].name).to.equal(
-        'Omega bar 13',
-      );
     });
   });
 });
