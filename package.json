@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --reporter spec --require @babel/register test/index.js",
+    "performance-test": "tsc test/performance/src/index.ts --outDir test/performance/lib && node test/performance/lib/index.js",
     "test-watch": "mocha --reporter spec --compilers js:babel-core/register test/index.js --recursive --watch",
     "prepublish": "npm run clean && npm run build && npm run test",
     "clean": "rm -rf lib/",

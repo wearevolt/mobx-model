@@ -43,7 +43,7 @@ export interface MobxModelSetOptions {
 }
 
 export interface MobxModelObservables {
-  collection: MobxModel[];
+  collection: Map<string | number, MobxModel>;
 }
 
 /*
@@ -54,7 +54,7 @@ export interface MobxModelObservables {
  */
 const initObservables = function(target: any) {
   if (!target.observables) {
-    target.observables = { collection: [] };
+    target.observables = { collection: new Map() };
   }
 };
 
@@ -119,15 +119,13 @@ class MobxModel {
       return null;
     }
 
-    const items: any[] = result(this, 'observables.collection');
+    const items: Map<string | number, T> = result(
+      this,
+      'observables.collection',
+    );
 
     if (items) {
-      let l = items.length;
-      for (let i = 0; i < l; i++) {
-        if (items[i].id && items[i].id.toString() === id.toString()) {
-          return items[i];
-        }
-      }
+      return items.get(id) || null;
     }
 
     return null;
@@ -140,7 +138,7 @@ class MobxModel {
     let { topLevelJson, requestId } = options;
 
     /*
-      requestId is used to allow models to 
+      requestId is used to allow models to
       prevent loops when setting same attributes
       multiple times, we set one if none is set
      */
@@ -163,7 +161,7 @@ class MobxModel {
           requestId,
         });
 
-        this.observables.collection.push(model);
+        this.observables.collection.set(model.id, model);
       }
 
       model.set({ modelJson, topLevelJson, requestId });
@@ -174,16 +172,13 @@ class MobxModel {
 
   static remove(model: MobxModel): void {
     if (this.observables && this.observables.collection) {
-      this.observables.collection.splice(
-        this.observables.collection.indexOf(model),
-        1,
-      );
+      this.observables.collection.delete(model.id);
     }
   }
 
   static all(): MobxModel[] {
     initObservables(this);
-    return this.observables.collection.slice();
+    return Array.from(this.observables.collection.values());
   }
 
   static addClassAction(
